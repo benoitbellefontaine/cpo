@@ -1002,7 +1002,8 @@ class Contact extends Component {
                                 switch (index) {
                                     case 0: return ( // TITLE
                                         
-                                        <div style={{
+                                        <div key={0}
+                                            style={{
                                                 display: 'flex',
                                                 flexDirection: 'column',
                                                 width: '344px',

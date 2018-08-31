@@ -1,7 +1,7 @@
 $(document).ready(function(){
 	var menuIsOpen=false,
 		$menu=$(".menu"),
-		$menuItem=$(".menu-item"),
+		$menuItem=$(".menu-item2"),
 		$menuBg=$(".menu-bg"),
 		$menuToggle=$(".menu-toggle"),
 

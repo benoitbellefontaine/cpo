@@ -10,6 +10,7 @@ import Cycles from './modules/cycles';
 import Home from './modules/home';
 import Contact from './modules/contact';
 import Services from './modules/services';
+import Quiz from './modules/quiz/appquiz';
 
 // styles
 import './App.css';
@@ -34,30 +35,54 @@ import './App.css';
 
 class Menu extends Component {
 
+  constructor(props, context) {
+    super(props, context);
+    this.state = {
+      openMenu: false,
+    };
+  }
+
   render() {
+
+    const {toggle,langue,handleMouseDown} = this.props;
+
     var visibility = "hide";
-    //var langue = (this.props.langue === 'FR');
  
-    if (this.props.menuVisibility) {
+    if (this.props.menuOpen) {
       visibility = "show";
     }
 
-    console.log('Menu');
+    console.log('Menu.Render - visibility: ', visibility);
 
     return (
       
       <div id="flyoutMenu"
-           //onMouseDown={this.props.handleMouseDown} 
+           onMouseDown={this.props.handleMouseDown}
            className={visibility}>
 
-        <div className="menu-bg js-blur"></div>
         <nav className="menu-items">
-          <Link className="menu-item" to="/home">Accueil</Link>
-          <Link className="menu-item" to="/cycles">Cycles</Link>
-          <Link className="menu-item" to="/equipe">Équipe</Link>
-          <Link className="menu-item" to="/Services">Services</Link>
-          <Link className="menu-item" to="/amstest">AMSTest</Link>
-          <Link className="menu-item" to="/contact">Contact</Link>
+          <Link className="menu-item" to="/home" onClick={ toggle }>
+            <i className="fas fa-home"></i>
+            {(langue === 'FR') ? ' Accueil' : ' Home'}
+          </Link>
+          <Link className="menu-item" to="/cycles" onClick={ toggle } >
+            <i className="fas fa-bicycle"></i>
+            { ' Cycles'}</Link>
+          <Link className="menu-item" to="/equipe" onClick={ toggle } >
+            <i className="fas fa-people-carry"></i>
+            {(langue === 'FR') ? ' Équipe' : ' Team'}</Link>
+          <Link className="menu-item" to="/Services" onClick={ toggle } >
+            <i className="fas fa-hands-helping"></i>
+            { ' Services'}</Link>
+          <Link className="menu-item" to="/quiz" onClick={ toggle } >
+            <i className="fas fa-question"></i>
+            {(langue === 'FR') ? ' Q&R' : ' Q&A'}</Link>
+          <Link className="menu-item" to="/contact" onClick={ toggle } >
+            <i className="fas fa-at"></i>
+            {(langue === 'FR') ? ' Contact' : ' Contact'}</Link>
+          <Link className="menu-item" to="/amstest" onClick={ toggle } >
+            <i className="fas fa-vial"></i>
+           { ' Test + ToDos'}</Link>
         </nav>
 
       </div>
@@ -71,9 +96,9 @@ class App extends Component {
     super(props, context);
 
     this.state = {
-      visible: false,
-      langue: "FR",
-      theme: "obscur",
+      langue:   "FR",
+      theme:    "obscur",
+      menuOpen: false,
     };
 
     this.handleMouseDown = this.handleMouseDown.bind(this);
@@ -82,16 +107,24 @@ class App extends Component {
   }
 
   handleMouseDown(e) {
-    console.log("clicked");
-    const ref = this.refs.menutoggle;
-    (this.state.visible) ? ref.classList.remove("menu-open") : ref.classList.add("menu-open");
+    console.log("handleMouseDown");
     this.toggleMenu();
     e.stopPropagation();
   }
 
   toggleMenu() { 
-    this.setState({ visible: !this.state.visible }); 
+    const {menuOpen} = this.state;
+    console.log('if menu is ',menuOpen,' just before toggling')
+    const ref = this.refs.menutoggle;
+    (menuOpen) ? ref.classList.remove("menu-open") : ref.classList.add("menu-open");
+    this.setState({ menuOpen: !menuOpen });
+    console.log('toggleMenu');
   }
+
+  /*handleStateChange (state) {
+    console.log('handleStateChange');
+    this.setState({menuOpen: state.isOpen})
+  }*/
 
   handleLanguage = () => {
     const {langue} = this.state;
@@ -115,18 +148,19 @@ class App extends Component {
 
     const width = window.innerWidth;
     const height = window.innerHeight;
-    //const height = 5*h/100;
-    //const height = 95*h/100-50;
 
-    //const RenderMenu = (props) => {return (<Menu langue={this.state.langue} width={w} height={h} {...props}/>);}
-    //const RenderTeam = (props) => {return (<Team langue={this.state.langue} width={w} height={h} {...props}/>);}
     const RenderHome = (props) => {return (<Home langue={langue} width={width} height={height} {...props}/>);}
     const RenderCycles = (props) => {return (<Cycles langue={langue} width={width} height={height} {...props}/>);}
     const RenderServices = (props) => {return (<Services langue={langue} width={width} height={height} {...props}/>);}
+    const RenderQuiz = (props) => {return (<Quiz langue={langue} width={width} height={height} {...props}/>);}
 
     return (
       <div>
-        <Menu handleMouseDown={this.handleMouseDown} langue={this.state.langue} menuVisibility={this.state.visible}/>
+        <Menu 
+          //handleMouseDown={this.handleMouseDown} 
+          langue={this.state.langue} 
+          menuOpen={this.state.menuOpen}
+          toggle={this.toggleMenu}/>
         
         <button ref="menutoggle" className="menu-toggle" onMouseDown={this.handleMouseDown}><span>Open Menu</span></button>
 
@@ -139,6 +173,7 @@ class App extends Component {
           <Route path='/cyclestest' component={CyclesTest} />
           <Route path='/services' render={RenderServices} />
           <Route path='/amstest' component={AMSTest} />
+          <Route path='/quiz' component={RenderQuiz} />
           <Route path='/contact' component={Contact} />
           <Route path='/' render={RenderHome} />
         </Switch>

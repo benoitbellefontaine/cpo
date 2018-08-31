@@ -2,7 +2,7 @@ import React,{Component} from 'react';
 import PropTypes from 'prop-types';
 import NavLink from 'react-router-dom/NavLink';
 import { connect } from 'react-redux';
-import { Motion, StaggeredMotion, spring } from 'react-motion';
+import { StaggeredMotion, spring } from 'react-motion';
 import * as d3 from 'd3';
 
 import './styles/services.css';
@@ -25,8 +25,6 @@ import './styles/services.css';
   const finalStiffness = 400;
   const finalDamping = 60;
 /* ------------------------------------------ */
-
-const springConfig = {stiffness: 400, damping: 60};
 
 /*
 demarrage       rgb(116,184,33),
@@ -69,7 +67,6 @@ const childButtonIcons = ['rocket','low-vision','eye','trophy','sync-alt','servi
       <li
         onClick={onClick}
         style={{
-          fontWeight: 500,
           listStyleType: 'none',
           padding: 10,
           margin: 3,
@@ -281,23 +278,7 @@ const innerWrapperStyles = {
   width: '100%',
 }
 
-var outerStyles = {
-    display: 'flex',
-    flexDirection: 'column',
-    width: '100%',
-};
-
 export default class Services extends Component {
-
-  componentWillMount() {
-    console.log("Services:componentWillMount()");
-    outerStyles = {
-        display: 'flex',
-        flexDirection: 'column',
-        width: '100%',
-        overflowY:"hidden"
-    };
-  }
 
   componentDidMount() {
 
@@ -443,20 +424,19 @@ export default class Services extends Component {
     */
 
     // TITLE
-    var title = svg
-        .append('text')
-            .attr("class","titre")
-            .attr("text-anchor","middle")
-            .attr('x',width/2)
-            .attr('y',50)
-            .attr('font-size', "20px")
-            .attr("opacity","0")
-            .attr("transform","translate(0,-10)")
-            .style("fill", "black")
-            .text('Eventail de services')
-            .transition().duration(1000)
-            .attr("opacity","1")
-            .attr('transform','translate(0,-15)')
+    svg.append('text')
+        .attr("class","titre")
+        .attr("text-anchor","middle")
+        .attr('x',width/2)
+        .attr('y',50)
+        .attr('font-size', "20px")
+        .attr("opacity","0")
+        .attr("transform","translate(0,-10)")
+        .style("fill", "black")
+        .text('Eventail de services')
+        .transition().duration(1000)
+        .attr("opacity","1")
+        .attr('transform','translate(0,-15)');
 
     var simulation = d3.forceSimulation(nodes)
         .force("link", d3.forceLink().id(function (d) {return d.id;}).distance(150).strength(4))

@@ -512,8 +512,8 @@ class Cycles extends Component {
 
         return (
             <div style={{
-                width: `${width}px`,
-                height: `${height}px`,
+                //width: `${width}px`,
+                //height: `${height}px`,
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
