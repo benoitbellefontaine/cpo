@@ -1,0 +1,31 @@
+
+.servicesNavLink {
+    color: gray;
+    text-decoration: none;
+    letter-spacing: 0.0em;
+    transition: font-weight 0.75s ease;
+}
+.servicesNavLink:hover {
+    text-decoration: underline;
+    font-weight: 700;
+}
+
+.servicesShadow {
+    box-shadow:rgba(0, 0, 0, 0.2) 0px 0px 0px 0px;
+    transform: scale(1);
+    transition: all 0.75s ease;
+}
+.servicesShadow:hover {
+    box-shadow:rgba(0, 0, 0, 0.2) 0px 4px 8px 4px;
+    transform: scale(1);
+    letter-spacing: 0em;
+    z-index:1;
+}
+
+.servicesUnderline {
+    border-bottom: 0px solid black;
+    transition: border-bottom 0.75s ease;
+}
+.servicesUnderline:hover {
+    border-bottom: 100px solid black;
+}

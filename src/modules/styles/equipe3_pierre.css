@@ -1,0 +1,108 @@
+/* Layout for search container */
+.search1 {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	padding: 3em;
+}
+
+.js .search1 {
+	position: fixed;
+	z-index: 0;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100vh;
+}
+
+.search1 {
+	pointer-events: none;
+	opacity: 0;
+	transition: opacity 0.3s;
+}
+
+.search-pierre {
+	/*/pointer-events: auto;*/
+    opacity: 1;
+}
+
+.search-pierre .terminal__line:first-child {
+	width: 19ch;
+}
+.search-pierre .terminal__line:nth-child(2){
+	width: 30ch;
+}
+.search-pierre .terminal__line:nth-child(3) {
+	width: 50ch;
+}
+.search-pierre .terminal__line:nth-child(4) {
+	width: 25ch;
+}
+.search-pierre .terminal__line:nth-child(5) {
+	width: 42ch;
+}
+.search-pierre .terminal__line:nth-child(6) {
+	width: 77ch;
+}
+.search-pierre .terminal__line:nth-child(7) {
+	width: 14ch;
+}
+.search-pierre .terminal__line:nth-child(8) {
+	width: 19ch;
+}
+
+.search-pierre .terminal__line {
+	animation: typing 1s steps(30, end), scaleUp 0.1s forwards;
+}
+
+.search-pierre .terminal__line:first-child {
+	animation-timing-function: steps(19, end), ease;
+}
+
+.search-pierre .terminal__line:nth-child(2) {
+    animation-delay: 2s;
+    animation-duration: 1.5s, 0.1s;
+	animation-timing-function: steps(30, end), ease;
+}
+
+.search-pierre .terminal__line:nth-child(3) {
+    animation-delay: 3.5s;
+    animation-duration: 2.50s, 0.1s;
+	animation-timing-function: steps(50, end), ease;
+}
+
+.search-pierre .terminal__line:nth-child(4) {
+    animation-delay: 6.0s;
+	animation-duration: 1.25s, 0.1s;
+	animation-timing-function: steps(25, end), ease;
+}
+
+.search-pierre .terminal__line:nth-child(5) {
+    animation-delay: 7.25s;
+	animation-duration: 2.10s, 0.1s;
+	animation-timing-function: steps(42, end), ease;
+}
+
+.search-pierre .terminal__line:nth-child(6) {
+    animation-delay: 9.35s;
+	animation-duration: 3.85s, 0.1s;
+	animation-timing-function: steps(76, end), ease;
+}
+
+.search-pierre .terminal__line:nth-child(7) {
+	animation-duration: 0.7s, 0.1s;
+	animation-timing-function: steps(14, end), ease;
+	animation-delay: 8.9s;
+}
+
+.search-pierre .terminal__line:nth-child(8) {
+	animation-duration: 0.95s, 0.1s;
+	animation-timing-function: steps(19, end), ease;
+	animation-delay: 9.6s;
+}
+
+@media screen and (max-width: 40em) {
+	.search1 {
+		padding: 0.5em;
+	}
+}
