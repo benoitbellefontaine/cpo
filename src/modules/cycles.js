@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import * as d3 from 'd3';
 
+import SituationList from './redux-material/situationlist.js';
+
 let descriptions =  [
     {
         titre: 'DÉMARRAGE',
@@ -518,11 +520,11 @@ class Cycles extends Component {
                 flexDirection: 'column',
                 alignItems: 'center',
                 }}>
-                <h2 style={{display:'flex',fontSize:35, justifyContent:'center'}}>
+                <h2 style={{display:'flex',fontSize:35, justifyContent:'center',marginTop:50}}>
                     {(langue === 'FR') ? "Cycles de vie de l'entreprise" : "Business Lifecycles"}
                 </h2>
                 <svg style={{width:`${width-400}px`,backgroundColor:'white',margin:'0 200px 0 200px',
-                    //boxShadow: 'inset 5px 5px 10px rgba(0,0,0,.5),inset -5px -5px 10px rgba(0,0,0,.5)',
+                    boxShadow: 'inset 5px 5px 10px rgba(0,0,0,.5),inset -5px -5px 10px rgba(0,0,0,.5)',
                     borderRadius: 10
                     //boxShadow: '5px 5px 5px rgba(255,255,255,.8),-5px -5px 5px rgba(255,255,255,.8)'
                     }} viewBox={viewbox}>
@@ -530,13 +532,34 @@ class Cycles extends Component {
                 </svg>
                 {
                     (langue === 'FR') 
-                    ? <p>Placez le curseur sur un des cycles de vie pour afficher sa description</p>
-                    : <p>Move the cursor on one of the pulsing circles (cycles) to see its description</p>
+                    ? <h2>Placez le curseur sur un des cycles de vie pour afficher sa description</h2>
+                    : <h2>Move the cursor on one of the pulsing circles (cycles) to see its description</h2>
                 }
 
-                <h2 style={{display:'flex',fontSize:20, justifyContent:'center'}}>
-                    Ajout autre matérial pour questionner le répondant sur son cycle de vie (Question 4)
-                </h2>
+                <div style={{display:'flex',fontSize:20, flexDirection: "column",alignItems:'center', textAlign:'center',maxWidth:'100vw',padding:20, backgroundColor:"white", textAlign:"center"}}>
+                    <div style={{maxWidth:'60%',fontSize:'24px', margin:10, color:'black',textAlign:'left',fontStyle: "italic"}}>
+                    Toute compagnie qui démarre doit faire face à certains défis et le principal défi 
+                    d'une firme expert/conseil en services financiers telle que la nôtre, est de 
+                    positionner ses services en fonction des besoins du client. 
+                    Au fur et à mesure que nous travaillions sur les problèmes de notre clientèle, 
+                    nous avions remarqué comment certains services s'agencaient mieux avec les stades 
+                    d'évolution de nos clients. Et c'est ainsi que nous avons catégorisé les services 
+                    selon les cycles de vie de l'entreprise. Pour nous, c'était la logique même. 
+                    C'est une situation gagnante pour notre équipe et pour nos clients car nous réalisons pour eux 
+                    ce que nous réalisons pour nous mêmes: plus de structure, plus d'efficacité et une meilleure gestion.  
+                    </div>
+                    <div style={{width:'60%',maxWidth:'60%',fontSize:'24px', margin:0, color:'black',textAlign:'right',fontStyle: "italic"}}>
+                        Pierre et Guy
+                    </div>
+                    <div style={{width:'60%',maxWidth:'60%',fontSize:'20px', marginTop:20, padding: 20, color:'black',textAlign:'center',fontStyle: "italic",
+                        boxShadow:'3px 3px 5px 4px #eee',
+                        borderRadius:0}}>
+                        Alors sans plus tarder, vous pouvez répondre ici même à la question 4 du questionnaire. 
+                        Vous aurez le loisir de changer la réponse par la suite surtout après avoir consulter la liste des services.
+                        <SituationList />
+                    </div>
+                    
+                </div>
 
             </div>
         )

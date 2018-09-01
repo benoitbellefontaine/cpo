@@ -29,7 +29,7 @@ body {
 
 a {
 	color: #999;
-	color: white;
+	color: #B2B5BD;
 	text-decoration: none;
 }
 
@@ -43,7 +43,8 @@ button:focus {
 }
 
 p {
-	font-size: 12px !important;
+	margin: 20;
+	font-size: 16px !important;
 }
 
 /* Header */
@@ -127,7 +128,7 @@ p {
 /* Demo links */
 .codrops-demos {
 	margin: 2em 0 0;
-	font-size: 1.35em !important;
+	font-size: 2em !important;
 }
 
 .codrops-demos a {
@@ -137,6 +138,7 @@ p {
 	border-style: solid;
 	padding: 0.35em;
 	min-width: 120px;
+	font-size: 1em !important;
 	font-family: 'Lustria', 'Goudy Old Style', Garamond, 'Big Caslon', 'Times New Roman', serif;
 }
 
@@ -159,6 +161,7 @@ p {
 	margin: 0.25em 0 0 0;
 	font-weight: 400;
 	line-height: 1;
+	font-size: 2em !important;
 	font-family: 'Lustria', 'Goudy Old Style', Garamond, 'Big Caslon', 'Times New Roman', serif;
 }
 
@@ -171,6 +174,7 @@ p {
 	/*text-transform: uppercase;*/
 	letter-spacing: 2px;
 	font-size: 0.675em;
+	font-size: 1em !important;
 	font-family: 'Quattrocento Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 

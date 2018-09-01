@@ -7,10 +7,6 @@ import * as d3 from 'd3';
 
 import './styles/services.css';
 
-/*
- * SERVICES
- */
-
 /* ------------ SPRING CONSTANTS ------------ */
   const startY = 25;
   const startOpacity = 0;
@@ -101,6 +97,7 @@ const childButtonIcons = ['rocket','low-vision','eye','trophy','sync-alt','servi
       </ul>
     );
   }
+  
   List.propTypes = {
       todos: PropTypes.arrayOf(
           PropTypes.shape({

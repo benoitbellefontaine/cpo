@@ -3,6 +3,7 @@ import '../App.css';
 
 /* MISSION - VALEURS - INTÉGRITÉ */
 
+  /* functional component */
   const MVI = (props) => (
     <div className="statement">
         <div className="title">
@@ -12,24 +13,24 @@ import '../App.css';
     </div>
   );
 
-/* MISSION - VALEURS - INTÉGRITÉ */
+  /* data */
+    const mvidata = [
+      {
+        titre:"Mission",texte: "Partager les risques. Partager le succès.",
+        title:"Mission",text:  "Share the risks. Share success."
+      },
+      {
+        titre:"Valeurs",texte:"Respecter le client: l'écouter, relever, noter, analyser les détails importants de son discours. Réitérer en cas de besoin. Poser des questions pertinentes. Être direct et franc avec elle/lui. Apporter la solution appropriée.",
+        title:"Values",text:"Respect the customer: listen, record, note, analyze his/her take on the situation. Reiterate when needed. Ask pertinent questions. Be direct and candid with her/him. Provide appropriate solution."
+      },
+      {
+        titre:"Intégrité",texte:"Nous visons les plus hauts niveaux d'intégrité et d'éthique. Appliquer et maintenir un tel niveau est au cœur de notre stratégie pour résoudre les problèmes et mener à bien la situation.",
+        title:"Integrity",text: "We strive for the highest level of integrity and ethics. Applying and maintaining such a high level is at the heart of our strategy to work the issues and bring any situation to a successful conclusion."
+      }
+    ];
+  /* DATA MVI */
 
-/* DATA MVI */
-  const mvidata = [
-    {
-      titre:"Mission",texte:"F - Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-      title:"Mission",text:"A - Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
-    },
-    {
-      titre:"Valeurs",texte:"Respecter le client: l'écouter, relever, noter, analyser les détails importants de son discours. Réitérer en cas de besoin. Poser des questions pertinentes. Être direct et franc avec elle/lui. Apporter la solution appropriée.",
-      title:"Values",text:"Respect the customer: listen, record, note, analyze his/her take on the situation. Reiterate when needed. Ask pertinent questions. Be direct and candid with her/him. Provide appropriate solution."
-    },
-    {
-      titre:"Intégrité",texte:"Nous visons les plus hauts niveaux d'intégrité et d'éthique. Appliquer et maintenir un tel niveau est au cœur de notre stratégie pour résoudre les problèmes et mener à bien la situation.",
-      title:"Integrity",text: "We strive for the highest level of integrity and ethics. Applying and maintaining such a high level is at the heart of our strategy to work the issues and bring any situation to a successful conclusion."
-    }
-  ];
-/* DATA MVI */
+/* MISSION - VALEURS - INTÉGRITÉ */
 
 class Home extends Component {
 
