@@ -2,7 +2,7 @@
   position: fixed;
   top: 0;
   width: 20vw;
-  min-width: 15vw;
+  min-width: 20vw;
   height: 100vh;
   background: #333;
   left: 0;
@@ -31,4 +31,31 @@
  
 #flyoutMenu h2 a:hover {
   text-decoration: underline;
+  outline: 1px solid white;
+}
+
+.menu-items {
+	position: relative;
+	display: inline-block;
+	width: 100%;
+	vertical-align: middle;
+	line-height: 1;
+}
+
+.menu-item {
+	display: block;
+	color: #B2B5BD;
+	font-size: 20px;
+	padding-top: 18px;
+	padding-bottom: 18px;
+	padding-right: 40px;
+	text-align: right;
+}
+
+@media screen and (max-width: 40em) {
+  .menu-item {
+    font-size: 12px;
+    padding-right: 15px;
+    line-height: 0.75;
+  }
 }

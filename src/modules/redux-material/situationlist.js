@@ -49,7 +49,7 @@ import { connect } from 'react-redux';
         const SList = ({ situations, onTodoClick, questionId }) => (
             <div>
                 <h3>
-                   Choisir le cycle de vie qui correspond le plus à votre entreprise
+                   Choisir le cycle de vie de votre entreprise
                 </h3>
                 <ul style={{width:'100%',boxSizing:'border-box',display:'flex',flexDirection:'row',flexWrap:'wrap',justifyContent:'center',padding:0}}>
                     {situations.map(situation => (

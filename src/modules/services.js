@@ -32,6 +32,8 @@ redressement    rgb(214,45,32),
 
 const childButtonIcons = ['rocket','low-vision','eye','trophy','sync-alt','servicestack','pencil','bell','comment','bolt', 'ban', 'code'];
 
+var color = d3.scaleOrdinal(d3.schemeCategory10);
+
 /* action */
   const toggleTodo = id => {
       return {
@@ -97,7 +99,7 @@ const childButtonIcons = ['rocket','low-vision','eye','trophy','sync-alt','servi
       </ul>
     );
   }
-  
+
   List.propTypes = {
       todos: PropTypes.arrayOf(
           PropTypes.shape({
@@ -132,30 +134,29 @@ const childButtonIcons = ['rocket','low-vision','eye','trophy','sync-alt','servi
     </NavLink>
   )
 
-  const ServiceButtons = () => (
+  const ServiceButtons = (props) => (
     <div style={{display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',width:'100%'}}>
-      <FilterButton color={'rgb(116,184,33)'}   index={0} fa='fas' r={116}  g={184} b={33}  filter={VisibilityFilters.SHOW_DEMARRAGE}>Démarrage</FilterButton>
-      <FilterButton color={'rgb(84,145,245)'}   index={1} fa='fas' r={84}   g={145} b={245} filter={VisibilityFilters.SHOW_COURTTERME}>Court terme</FilterButton>
-      <FilterButton color={'rgb(84,145,245)'}   index={2} fa='fas' r={84}   g={145} b={245} filter={VisibilityFilters.SHOW_MOYENTERME}>Moyen terme</FilterButton>
-      <FilterButton color={'rgb(84,145,245)'}   index={3} fa='fas' r={84}   g={145} b={245} filter={VisibilityFilters.SHOW_EXCELLENCE}>Excellence</FilterButton>
-      <FilterButton color={'rgb(214,45,32)'}    index={4} fa='fas' r={214}  g={45}  b={32}  filter={VisibilityFilters.SHOW_REDRESSEMENT}>Redressement</FilterButton>
-      <FilterButton color={'rgb(116,116,116)'}  index={5} fa='fab' r={116}  g={116} b={116} filter={VisibilityFilters.SHOW_ALL}>Tous les services</FilterButton>
+      <FilterButton color={props.color[1]}  index={0} fa='fas' r={116}  g={184} b={33}  filter={VisibilityFilters.SHOW_DEMARRAGE}>Démarrage</FilterButton>
+      <FilterButton color={props.color[2]}  index={1} fa='fas' r={84}   g={145} b={245} filter={VisibilityFilters.SHOW_COURTTERME}>Court terme</FilterButton>
+      <FilterButton color={props.color[3]}  index={2} fa='fas' r={84}   g={145} b={245} filter={VisibilityFilters.SHOW_MOYENTERME}>Moyen terme</FilterButton>
+      <FilterButton color={props.color[4]}  index={3} fa='fas' r={84}   g={145} b={245} filter={VisibilityFilters.SHOW_EXCELLENCE}>Excellence</FilterButton>
+      <FilterButton color={props.color[5]}  index={4} fa='fas' r={214}  g={45}  b={32}  filter={VisibilityFilters.SHOW_REDRESSEMENT}>Redressement</FilterButton>
+      <FilterButton color={props.color[6]}  index={5} fa='fab' r={116}  g={116} b={116} filter={VisibilityFilters.SHOW_ALL}>Tous les services</FilterButton>
     </div>
   )
 
-  const Button = ({ active, children, index, r, g, b, fa, onClick }) => {
+  const Button = ({ active, children, index, r, g, b, fa, onClick, color }) => {
       if (active) {
           return <button className='servicesShadow' style={{
             outlineStyle:'none',
             border: 'none',
-            //border: '1px solid ' + 'rgba('+ r +',' + g + ',' + b + ',1)',
             backgroundColor: 'rgba('+ r +',' + g + ',' + b + ',1)',
+            //backgroundColor: color,
             color: 'white',
             fontSize:20,
             borderRadius:3,       
-            paddingTop:5, paddingBottom:5,
-            marginTop:1,
-            //transition:,
+            padding: '5px 0 5px 0',
+            marginTop: '1px 0 0 0',
             width:'100%'}}
             >
             <div style={{display:'flex',flexDirection:'column'}}>
@@ -167,15 +168,14 @@ const childButtonIcons = ['rocket','low-vision','eye','trophy','sync-alt','servi
       return (
           <button className='servicesShadow' 
             style={{
-              //outlineStyle:'none',
-              border:'none',
-              fontSize:20,
-              //border:'1px solid gray',
-              borderRadius:3, paddingTop:5, paddingBottom:5,
+              border: 'none',
+              fontSize: 20,
+              borderRadius: 3, paddingTop: 5, paddingBottom: 5,
+              //backgroundColor: 'rgb(230,230,250)',
               backgroundColor: 'rgb(230,230,250)',
-              color:'rgba('+ r +',' + g + ',' + b + ',1)',
-              marginTop:1,
-              width:'100%'
+              color: 'rgba('+ r +',' + g + ',' + b + ',1)',
+              marginTop: 1,
+              width: '100%'
             }}
             onClick={e => { 
               e.preventDefault() 
@@ -196,6 +196,7 @@ const childButtonIcons = ['rocket','low-vision','eye','trophy','sync-alt','servi
     r: PropTypes.number.isRequired,
     g: PropTypes.number.isRequired,
     b: PropTypes.number.isRequired,
+    color: PropTypes.string.isRequired,
     fa: PropTypes.string.isRequired,
     onClick: PropTypes.func.isRequired
   }
@@ -574,8 +575,7 @@ export default class Services extends Component {
   }
 
   render() {
-    
-    var color = d3.scaleOrdinal(d3.schemeCategory10);
+
     const {langue} = this.props;
 
     const {width,height} = this.props;
@@ -584,23 +584,24 @@ export default class Services extends Component {
     // `translate3d(0, ${this.props.style.y}px, 0) scale(${scale})`
     
     return (
-        <div style={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            marginBottom: '4em',
-            fontSize: 20,
-            }}>
-          <h2 style={{display:'flex',fontSize:35, justifyContent:'center'}}>
+        <div style={{ 
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          }}>
+
+          <h2 style={{display:'flex',fontSize:35, justifyContent:'center',marginTop:50}}>
               {(langue === 'FR') ? "Services" : "Services"}
           </h2>
-          <svg style={{width:`${width-400}px`,backgroundColor:'white',margin:'0 200px 0 200px',
-              //boxShadow: 'inset 5px 5px 10px rgba(0,0,0,.5),inset -5px -5px 10px rgba(0,0,0,.5)',
-              borderRadius: 10
-              //boxShadow: '5px 5px 5px rgba(255,255,255,.8),-5px -5px 5px rgba(255,255,255,.8)'
-              }} viewBox={viewbox}>
+
+          <svg style={{width:'calc(100% - 20vw)',backgroundColor:'white',margin:'0 10vw 0 10vw',
+            boxShadow: 'inset 5px 5px 10px rgba(0,0,0,.5),inset -5px -5px 10px rgba(0,0,0,.5)',
+            borderRadius: 10
+            //boxShadow: '5px 5px 5px rgba(255,255,255,.8),-5px -5px 5px rgba(255,255,255,.8)'
+            }} viewBox={viewbox}>
               <g ref="anchor" width={width} height={height} />
           </svg>
+          
           <StaggeredMotion
               defaultStyles={[
                   // Add more items here for more dots
@@ -626,12 +627,12 @@ export default class Services extends Component {
                   <div style={innerWrapperStyles}>
                       {interpolatingStyles.map((style, index) => {
                           switch (index) {
-                              /*case 0: return (
+                              case 0: return (
                                 <div key={index} style={{ fontSize:'150%',margin:'20px', width:'100%', textAlign:'center',
-                                  opacity: style.o, WebkitTransform: `translate3d(0, ${style.y}px, 0)` }}>
+                                  opacity: style.o, WebkitTransform: `translate3d(0, ${style.y}px, 0)`,color:color[index] }}>
                                   SERVICES
                                 </div>
-                              );*/
+                              );
                               case 1: return (
                                 <div key={index} style={{display: 'flex',justifyContent: 'flex-end',marginRight:'5%',marginBottom:'1%',
                                   opacity: style.o, WebkitTransform: `translate3d(${style.y}px, 0,  0)`}}>
@@ -657,7 +658,7 @@ export default class Services extends Component {
                                   opacity: style.o, WebkitTransform: `translate3d(0, ${style.y}px, 0)`}}>
                                     <div style={{ display:'flex', width: '20%',justifyContent:'center',
                                       alignItems:'flex-start',borderRight:'1px solid lightgray'}}>
-                                      <ServiceButtons />
+                                      <ServiceButtons color={{color}} />
                                     </div>
                                     
                                     <div style={{ display:'flex', flexDirection:'column', width: '60%',

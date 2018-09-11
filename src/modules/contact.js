@@ -18,13 +18,13 @@ import gb from './images/GuyBoucher.jpg';
 // comm
 import ReCAPTCHA from "react-google-recaptcha";
 import axios from "axios";
-//import sendgrid from 'sendgrid';
+
+import './styles/contact.css';
 
 // styles
 import {Button,Modal,OverlayTrigger,Tooltip,Popover} from 'react-bootstrap';
 import {FieldGroup,FormGroup,FormControl,ControlLabel,HelpBlock} from 'react-bootstrap';
 import {Tab,Tabs,Alert} from 'react-bootstrap';
-//import {Grid,Row,Col,Nav,NavItem} from 'react-bootstrap';
 import {Row,Col,Nav,NavItem} from 'react-bootstrap';
 
 const patternEmail = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}";
@@ -72,10 +72,10 @@ const images = [pr,gb];
 
 var color = d3.scaleOrdinal(d3.schemeCategory10);
 
-const NavigationLink = ({ filter, color, width, children }) => (
+const NavigationLink = ({ filter, color, width, fontWeight, children }) => (
     <NavLink
         className='servicesNavLink'
-        style={{color:color, width:width}}
+        style={{color:color, width:width, fontWeight:fontWeight}}
         to={filter === 'SHOW_ALL' ? '/' : `/${ filter }`}
         >
         {children}
@@ -185,23 +185,13 @@ const NavigationLink = ({ filter, color, width, children }) => (
 
     /* SECTEURS presentation */
         const ActivityItem = ({ selected, text, id }) => (
-            <li
-                //onClick={onClick}
-                style={ {
-                    fontWeight: 500,
-                    listStyleType: 'none',
-                    padding: 10,
-                    margin: 3,
-                    borderRadius: 10,
+            <li className="item-presentation-li"
+                style={{
                     color: selected ? 'white' : 'rgba(0,0,0,0.7)',
                     backgroundColor: selected ? 'rgb(116,184,33)' : color[Math.floor(Math.random()*10)],
-                    //border: selected ? '2px solid rgb(116,184,33)' : '2px solid gray',
-                    fontSize: '100%',
-                    fontWeight: 600,
-                    flexGrow: 1
                 }}
                 >
-                <div style={{display:'flex',justifyContent:'space-between',alignItems:'center'}}>
+                <div>
                     <div><i className={selected ? `fas fa-check-square fa-2x` : `far fa-square fa-2x`}></i></div>
                     <span style={{width:'90%',margin:'0 auto',textAlign:'center'}}>{text}</span>
                     <span> </span>
@@ -209,14 +199,22 @@ const NavigationLink = ({ filter, color, width, children }) => (
             </li>
         )
         ActivityItem.propTypes = {
-            //onClick: PropTypes.func.isRequired,
             selected: PropTypes.bool.isRequired,
             text: PropTypes.string.isRequired
         }
 
-        const AList = ({ secteurs }) => {
+        const AList = ({ secteurs, langue }) => {
             if (secteurs.length === 0)
-                return (<div>Aucune réponse</div>)
+                return (
+                    <div className="item-presentation-li">
+                            <div style={{margin:'0px',padding:'0px'}}>
+                                <div><i className={`fas fa-times-circle fa-2x`}></i></div>
+                                <span style={{width:'90%',margin:'0 auto',textAlign:'center'}}>
+                                    {(langue) ? "Aucun service sélectionné" : "No services selected"}
+                                </span>
+                                <span> </span>
+                            </div>
+                    </div>)
             return (
             <ul style={{width:'100%',boxSizing:'border-box',display:'flex',flexDirection:'row',flexWrap:'wrap',justifyContent:'center',margin:0,padding:10}}>
                 {secteurs.map(activity => (
@@ -233,26 +231,17 @@ const NavigationLink = ({ filter, color, width, children }) => (
                     text: PropTypes.string.isRequired
                 }).isRequired
             ).isRequired,
+            langue: PropTypes.bool.isRequired
             //onTodoClick: PropTypes.func.isRequired
         }
     /* SECTEURS presentation */
 
     /* CHIFFRE presentation */
         const ChiffreItem = ({ onClick, selected, text, id }) => (
-            <li
-                //onClick={onClick}
-                style={ {
-                    fontWeight: 500,
-                    listStyleType: 'none',
-                    padding: 10,
-                    margin: 3,
-                    borderRadius: 10,
+            <li className="item-presentation-li"
+                style={{
                     color: selected ? 'white' : 'rgba(0,0,0,0.7)',
-                    backgroundColor: selected ? 'rgb(116,184,33)' : 'rgba(0,0,0,0.1)',
-                    //border: selected ? '2px solid rgb(116,184,33)' : '2px solid gray',
-                    fontSize: '100%',
-                    fontWeight: 600,
-                    flexGrow: 1
+                    backgroundColor: selected ? 'rgb(116,184,33)' : color[Math.floor(Math.random()*10)],
                 }}
                 >
                 <div style={{display:'flex',justifyContent:'space-between',alignItems:'center'}}>
@@ -263,13 +252,21 @@ const NavigationLink = ({ filter, color, width, children }) => (
             </li>
         )
         ChiffreItem.propTypes = {
-            //onClick: PropTypes.func.isRequired,
             selected: PropTypes.bool.isRequired,
             text: PropTypes.string.isRequired
         }
-        const CList = ({ chiffres }) => {
+        const CList = ({ chiffres, langue }) => {
             if (chiffres.length === 0)
-                return (<div>Aucune réponse</div>)
+                return (
+                    <div className="item-presentation-li">
+                            <div style={{margin:'0px',padding:'0px'}}>
+                                <div><i className={`fas fa-times-circle fa-2x`}></i></div>
+                                <span style={{width:'90%',margin:'0 auto',textAlign:'center'}}>
+                                    {(langue) ? "Aucun service sélectionné" : "No services selected"}
+                                </span>
+                                <span> </span>
+                            </div>
+                    </div>)
             return (
             <ul style={{width:'100%',boxSizing:'border-box',display:'flex',flexDirection:'row',flexWrap:'wrap',justifyContent:'center',margin:0,padding:10}}>
                 {chiffres.map(chiffre => (
@@ -285,26 +282,17 @@ const NavigationLink = ({ filter, color, width, children }) => (
                     text: PropTypes.string.isRequired
                 }).isRequired
             ).isRequired,
+            langue: PropTypes.bool.isRequired
             //onTodoClick: PropTypes.func.isRequired
         }
     /* CHIFFRE presentation */
 
     /* DEFI presentation */
         const DefiItem = ({ onClick, selected, text, id }) => (
-            <li
-                //onClick={onClick}
-                style={ {
-                    fontWeight: 500,
-                    listStyleType: 'none',
-                    padding: 10,
-                    margin: 3,
-                    borderRadius: 10,
+            <li className="item-presentation-li"
+                style={{
                     color: selected ? 'white' : 'rgba(0,0,0,0.7)',
-                    backgroundColor: selected ? 'rgb(116,184,33)' : 'rgba(0,0,0,0.1)',
-                    //border: selected ? '2px solid rgb(116,184,33)' : '2px solid gray',
-                    fontSize: '100%',
-                    fontWeight: 600,
-                    flexGrow: 1
+                    backgroundColor: selected ? 'rgb(116,184,33)' : color[Math.floor(Math.random()*10)],
                 }}
                 >
                 <div style={{display:'flex',justifyContent:'space-between',alignItems:'center'}}>
@@ -320,9 +308,18 @@ const NavigationLink = ({ filter, color, width, children }) => (
             text: PropTypes.string.isRequired
         }
 
-        const DList = ({ defis }) => {
+        const DList = ({ defis, langue }) => {
             if (defis.length === 0)
-                return (<div>Aucune réponse</div>)
+                return (
+                    <div className="item-presentation-li">
+                            <div style={{margin:'0px',padding:'0px'}}>
+                                <div><i className={`fas fa-times-circle fa-2x`}></i></div>
+                                <span style={{width:'90%',margin:'0 auto',textAlign:'center'}}>
+                                    {(langue) ? "Aucun service sélectionné" : "No services selected"}
+                                </span>
+                                <span> </span>
+                            </div>
+                    </div>)
             return (
                 <ul style={{width:'100%',boxSizing:'border-box',display:'flex',flexDirection:'row',flexWrap:'wrap',justifyContent:'center',margin:0,padding:10}}>
                     {defis.map(defi => (
@@ -346,20 +343,10 @@ const NavigationLink = ({ filter, color, width, children }) => (
 
     /* SERVICE presentation */
         const Item = ({ onClick, completed, text }) => (
-            <li
-                //onClick={onClick}
-                style={ {
-                    fontWeight: 500,
-                    listStyleType: 'none',
-                    padding: 10,
-                    margin: 3,
-                    borderRadius: 10,
+            <li className="item-presentation-li"
+                style={{
                     color: completed ? 'white' : 'rgba(0,0,0,0.7)',
-                    backgroundColor: completed ? 'rgb(116,184,33)' : 'rgba(0,0,0,0.1)',
-                    //border: selected ? '2px solid rgb(116,184,33)' : '2px solid gray',
-                    fontSize: '100%',
-                    fontWeight: 600,
-                    flexGrow: 1
+                    backgroundColor: completed ? 'rgb(116,184,33)' : color[Math.floor(Math.random()*10)],
                 }}
                 >
                 <div style={{display:'flex',justifyContent:'space-between',alignItems:'center'}}>
@@ -375,9 +362,18 @@ const NavigationLink = ({ filter, color, width, children }) => (
             text: PropTypes.string.isRequired
         }
 
-        const List = ({ todos, onTodoClick }) => {
+        const List = ({ todos, onTodoClick, langue }) => {
             if (todos.length === 0)
-                return (<div>Aucune réponse</div>)
+                return (
+                    <div className="item-presentation-li">
+                            <div style={{margin:'0px',padding:'0px'}}>
+                                <div><i className={`fas fa-times-circle fa-2x`}></i></div>
+                                <span style={{width:'90%',margin:'0 auto',textAlign:'center'}}>
+                                    {(langue) ? "Aucun service sélectionné" : "No services selected"}
+                                </span>
+                                <span> </span>
+                            </div>
+                    </div>)
             return (
                 <ul style={{display:'flex',flexWrap: 'wrap',width:'100%',padding:10}}>
                     {todos.map(todo => (
@@ -394,27 +390,17 @@ const NavigationLink = ({ filter, color, width, children }) => (
                     text: PropTypes.string.isRequired
                 }).isRequired
             ).isRequired,
+            langue: PropTypes.bool.isRequired,
             onTodoClick: PropTypes.func.isRequired
         }
     /* SERVICE presentation */
 
     /* QUALITE presentation */
         const QualiteItem = ({ onClick, selected, text, id }) => (
-            <li
-                //onClick={onClick}
-                style={ {
-                    fontWeight: 500,
-                    listStyleType: 'none',
-                    //display:'inline',
-                    padding: 10,
-                    margin: 3,
-                    borderRadius: 10,
+            <li className="item-presentation-li"
+                style={{
                     color: selected ? 'white' : 'rgba(0,0,0,0.7)',
-                    backgroundColor: selected ? 'rgb(116,184,33)' : 'rgba(0,0,0,0.1)',
-                    //border: selected ? '2px solid rgb(116,184,33)' : '2px solid gray',
-                    fontSize: '100%',
-                    fontWeight: 600,
-                    flexGrow: 1
+                    backgroundColor: selected ? 'rgb(116,184,33)' : color[Math.floor(Math.random()*10)],
                 }}
                 >
                 <div style={{display:'flex',justifyContent:'space-between',alignItems:'center'}}>
@@ -430,9 +416,18 @@ const NavigationLink = ({ filter, color, width, children }) => (
             text: PropTypes.string.isRequired
         }
 
-        const QList = ({ qualites }) => {
+        const QList = ({ qualites, langue }) => {
             if (qualites.length === 0)
-                return (<div>Aucune réponse</div>)
+                return (
+                    <div className="item-presentation-li">
+                            <div style={{margin:'0px',padding:'0px'}}>
+                                <div><i className={`fas fa-times-circle fa-2x`}></i></div>
+                                <span style={{width:'90%',margin:'0 auto',textAlign:'center'}}>
+                                    {(langue) ? "Aucun service sélectionné" : "No services selected"}
+                                </span>
+                                <span> </span>
+                            </div>
+                    </div>)
             return (
                 <ul style={{width:'100%',boxSizing:'border-box',display:'flex',flexDirection:'row',flexWrap:'wrap',justifyContent:'center',margin:0,padding:10}}>
                     {qualites.map(q => (
@@ -448,26 +443,17 @@ const NavigationLink = ({ filter, color, width, children }) => (
                     text: PropTypes.string.isRequired
                 }).isRequired
             ).isRequired,
+            langue: PropTypes.bool.isRequired,
             //onTodoClick: PropTypes.func.isRequired
         }
     /* QUALITE presentation */
 
     /* SITUATION presentation */
         const SituationItem = ({ onClick, selected, text, id }) => (
-            <li
-                //onClick={onClick}
-                style={ {
-                    fontWeight: 500,
-                    listStyleType: 'none',
-                    padding: 10,
-                    margin: 3,
-                    borderRadius: 10,
+            <li className="item-presentation-li"
+                style={{
                     color: selected ? 'white' : 'rgba(0,0,0,0.7)',
-                    backgroundColor: selected ? 'rgb(116,184,33)' : 'rgba(0,0,0,0.1)',
-                    //border: selected ? '2px solid rgb(116,184,33)' : '2px solid gray',
-                    fontSize: '100%',
-                    fontWeight: 600,
-                    flexGrow: 1
+                    backgroundColor: selected ? 'rgb(116,184,33)' : color[Math.floor(Math.random()*10)],
                 }}
                 >
                 <div style={{display:'flex',justifyContent:'space-between',alignItems:'center'}}>
@@ -478,14 +464,22 @@ const NavigationLink = ({ filter, color, width, children }) => (
             </li>
         )
         SituationItem.propTypes = {
-            //onClick: PropTypes.func.isRequired,
             selected: PropTypes.bool.isRequired,
             text: PropTypes.string.isRequired
         }
 
-        const SList = ({ situations, onTodoClick, questionId }) => {
+        const SList = ({ situations, onTodoClick, questionId, langue }) => {
             if (situations.length === 0)
-                return (<div>Aucune réponse</div>)
+                return (
+                    <div className="item-presentation-li">
+                            <div style={{margin:'0px',padding:'0px'}}>
+                                <div><i className={`fas fa-times-circle fa-2x`}></i></div>
+                                <span style={{width:'90%',margin:'0 auto',textAlign:'center'}}>
+                                    {(langue) ? "Aucun service sélectionné" : "No services selected"}
+                                </span>
+                                <span> </span>
+                            </div>
+                    </div>)
             return (
                 <ul style={{width:'100%',boxSizing:'border-box',display:'flex',flexDirection:'row',flexWrap:'wrap',justifyContent:'center',margin:0,padding:10}}>
                     {situations.map(situation => (
@@ -493,7 +487,6 @@ const NavigationLink = ({ filter, color, width, children }) => (
                     ))}
                 </ul>
         )}
-        
         
         SList.propTypes = {
             situations: PropTypes.arrayOf(
@@ -503,7 +496,7 @@ const NavigationLink = ({ filter, color, width, children }) => (
                     text: PropTypes.string.isRequired
                 }).isRequired
             ).isRequired,
-            //onTodoClick: PropTypes.func.isRequired
+            langue: PropTypes.string.isRequired
         }
     /* SITUATION presentation */
 
@@ -750,7 +743,7 @@ class Contact extends Component {
             name:'Benoit', 
             email: 'benoit.bellefontaine@gmail.com', 
             tel: '999-999-9999',
-            message: 'Bonjour',
+            message: 'Commentaires',
             qa: [],
             callback: "not fired",
             services : [], secteurs : [], qualites : [], chiffre : [],cycle : [], defis : [],
@@ -865,7 +858,7 @@ class Contact extends Component {
         this.setState({ value });
     };
 
-    /*onSubmit = () => {
+    /*onSubmit = () => { 
         const recaptchaValue = this._reCaptchaRef.getValue();
         this.props.onSubmit(recaptchaValue);
     }*/
@@ -974,12 +967,22 @@ class Contact extends Component {
     }
 
     render() {
+        
         const {langue} = this.props;
+
+        const {width,height} = this.props;
+        const viewbox = "0 0 " + width + " " + height;
+
+        const fraLienServices = "Visitez notre page Services pour ajouter ou retrancher des services";
+        const angLienServices = "Visit our Services page to add or remove services";
+
         return (
             <div>
-                <h2 style={{display:'flex',justifyContent:'center',fontSize:35}}>
-                    {(langue === 'FR') ? "Point de rencontre CPO" : "Checkpoint CPO"}
+
+                <h2 style={{display:'flex',fontSize:35, justifyContent:'center',marginTop:50}}>
+                    {(langue === 'FR') ? "Nous joindre" : "Contact"}
                 </h2>
+                
                 <StaggeredMotion
                     defaultStyles={[
                         // Add more items here for more dots
@@ -1012,107 +1015,91 @@ class Contact extends Component {
                                                 padding: 20,
                                                 boxShadow: '1px 1px 3px rgba(0,0,0,0.2), -1px -1px 3px rgba(0,0,0,0.2)',
                                                 boxSizing: 'border-box',
-                                                backgroundColor: 'lightblue',
-                                                opacity: style.o, //WebkitTransform: `translate3d(0, ${style.y}px, 0)` }}>
+                                                backgroundColor: "rgba(173, 216, 230,1)",//'lightblue',
+                                                opacity: style.o,
                                                 WebkitTransform: `translate3d(0, ${style.y}px, 0)`, 
                                                 //backgroundColor:'rgb(230,230,250)',
                                                 transform: `translate3d(0, ${style.y}px, 0)`
                                             }}>
-                                                <h4 style={{textAlign:'center',margin:0,padding:'1px',paddingBottom:'10px',textTransform:'uppercase',fontWeight:600,color:'black'}}>
-                                                    Point de rencontre
-                                                </h4>
-                                                <Tab.Container id="left-tabs-example" defaultActiveKey="first">
+                                               <Tab.Container className="contact-tabs" id="left-tabs-example" defaultActiveKey="first" style={{padding:15}}>
                                                     <Row>
-                                                        <Col sm={12}>
-                                                        <Nav bsStyle="tabs" style={{display:'flex',width:'100%'}}>
-                                                            <NavItem eventKey="first" style={{width:'33%',textAlign:"center",color:'black',fontSize:'120%'}}>Services</NavItem>
-                                                            <NavItem eventKey="second" style={{width:'33%',textAlign:"center",color:'black',fontSize:'120%'}}>Q&A</NavItem>
-                                                            <NavItem eventKey="third" style={{width:'33%',textAlign:"center",color:'black',fontSize:'120%'}}>Send</NavItem>
+                            
+                                                        <Nav bsStyle="tabs" style={{display:'flex',width:'100%'}} justified>
+                                                            <NavItem eventKey="first" style={{width:'33%',textAlign:"center",color:'black',fontSize:'100%'}}>Services</NavItem>
+                                                            <NavItem eventKey="second" style={{width:'34%',textAlign:"center",color:'black',fontSize:'100%'}}>Questions</NavItem>
+                                                            <NavItem eventKey="third" style={{width:'33%',textAlign:"center",color:'black',fontSize:'100%'}}>{(langue === 'FR') ? "Envoi" : "Send"}</NavItem>
                                                         </Nav>
                                                         <Tab.Content animation>
                                                             <Tab.Pane eventKey="first">
-                                                                <div><h4 style={{textAlign:'center',padding:'10px',textTransform:'uppercase'}}>Voici les services que vous pourriez avoir besoin</h4></div>
+                                                                <div><h4 style={{textAlign:'center',padding:'10px',textTransform:'uppercase',color:'black'}}>
+                                                                    {(langue === 'FR') ? "Voici les services que vous pourriez avoir besoin" : "Some of the services you could use"}</h4></div>
                                                                 <div style={{ display:'flex', width: '100%',justifyContent:'center',alignItems:'flex-start',
                                                                     borderBottom:'1px solid lightgray', backgroundColor:'rgb(250,250,255)'}}>
                                                                     <ContainerServices filter={'SHOW_COMPLETED'}/>
                                                                 </div>
                                                                 <div style={{ display:'flex', width: '100%',justifyContent:'center',alignItems:'center',
-                                                                    textAlign:'center',borderBottom:'1px solid lightgray',
-                                                                    backgroundColor:'rgb(250,250,255)',borderRight:'0px solid lightgray'}}>
-                                                                    <NavigationLink width={'70%'} color={'rgb(116,184,33)'} filter={'services'}>
-                                                                        Visitez notre page Services pour ajouter, enlever ou retrancher les services souhaités
+                                                                    textAlign:'center',borderBottom:'1px solid lightgray', fontSize:'16px', color:'black',
+                                                                    backgroundColor:'rgb(250,250,255)',borderRight:'0px solid lightgray',textTransform:'uppercase'}}>
+                                                                    <NavigationLink width={'70%'} fontWeight={'800'} color={'rgb(54, 117, 136)'} filter={'services'}>
+                                                                        {(langue === 'FR') ? fraLienServices : angLienServices}
                                                                     </NavigationLink>
                                                                 </div>
                                                             </Tab.Pane>
                                                             <Tab.Pane eventKey="second">
                                                                 <div>
-                                                                    <div style={{ display:'flex', width: '100%',justifyContent:'center',alignItems:'center',
-                                                                        textAlign:'center',borderBottom:'1px solid lightgray',
-                                                                        backgroundColor:'rgb(250,250,255)',borderRight:'0px solid lightgray'}}>
+                                                                    <div className="titre-section">
                                                                         <h4>
                                                                             Votre secteur d'activité
                                                                         </h4>
                                                                     </div>
-                                                                    <div style={{ display:'flex', width: '100%',justifyContent:'center',alignItems:'center',
-                                                                        margin:'0 auto', borderBottom:'1px solid lightgray', backgroundColor:'rgb(250,250,255)'}}>
-                                                                        <ContainerSecteurs filter={'SHOW_SELECTED'}/>
+                                                                    <div className="sous-section">
+                                                                        <ContainerSecteurs filter={'SHOW_SELECTED'} langue={this.props.langue === "FR"}/>
                                                                     </div>
 
-                                                                    <div style={{ display:'flex', width: '100%',justifyContent:'center',alignItems:'center',
-                                                                        textAlign:'center',borderBottom:'1px solid lightgray',
-                                                                        backgroundColor:'rgb(250,250,255)',borderRight:'0px solid lightgray'}}>
+                                                                    <div className="titre-section">
                                                                         <h4>
                                                                             Les qualités du consultant
                                                                         </h4>
                                                                     </div>
-                                                                    <div style={{ display:'flex', width: '100%',justifyContent:'center',alignItems:'center',
-                                                                        margin:'0 auto', borderBottom:'1px solid lightgray', backgroundColor:'rgb(250,250,255)'}}>
-                                                                        <ContainerQualites filter={'SHOW_SELECTED'}/>
+                                                                    <div className="sous-section">
+                                                                        <ContainerQualites filter={'SHOW_SELECTED'} langue={this.props.langue === "FR"}/>
                                                                     </div>
 
-                                                                    <div style={{ display:'flex', width: '100%',justifyContent:'center',alignItems:'center',
-                                                                        textAlign:'center',borderBottom:'1px solid lightgray',
-                                                                        backgroundColor:'rgb(250,250,255)',borderRight:'0px solid lightgray'}}>
+                                                                    <div className="titre-section">
                                                                         <h4>
                                                                             Votre chiffre d'affaire
                                                                         </h4>
                                                                     </div>
-                                                                    <div style={{ display:'flex', width: '100%',justifyContent:'center',alignItems:'center',
-                                                                        margin:'0 auto', borderBottom:'1px solid lightgray', backgroundColor:'rgb(250,250,255)'}}>
-                                                                        <ContainerChiffre filter={'SHOW_SELECTED'}/>
+                                                                    <div className="sous-section">
+                                                                        <ContainerChiffre filter={'SHOW_SELECTED'} langue={this.props.langue === "FR"}/>
                                                                     </div>
 
-                                                                    <div style={{ display:'flex', width: '100%',justifyContent:'center',alignItems:'center',
-                                                                        textAlign:'center',borderBottom:'1px solid lightgray',
-                                                                        backgroundColor:'rgb(250,250,255)',borderRight:'0px solid lightgray'}}>
+                                                                    <div className="titre-section">
                                                                         <h4>
                                                                             Votre cycle de vie
                                                                         </h4>
                                                                     </div>
-                                                                    <div style={{ display:'flex', width: '100%',justifyContent:'center',alignItems:'center',
-                                                                        margin:'0 auto', borderBottom:'1px solid lightgray', backgroundColor:'rgb(250,250,255)'}}>
-                                                                        <ContainerDefis filter={'SHOW_SELECTED'}/>
+                                                                    <div className="sous-section">
+                                                                        <ContainerSituation filter={'SHOW_SELECTED'} langue={this.props.langue === "FR"}/>
                                                                     </div>
 
-                                                                    <div style={{ display:'flex', width: '100%',justifyContent:'center',alignItems:'center',
-                                                                        textAlign:'center',borderBottom:'1px solid lightgray',
-                                                                        backgroundColor:'rgb(250,250,255)',borderRight:'0px solid lightgray'}}>
+                                                                    <div className="titre-section">
                                                                         <h4>
                                                                             Vos défis
                                                                         </h4>
                                                                     </div>
-                                                                    <div style={{ display:'flex', width: '100%',justifyContent:'center',alignItems:'center',
-                                                                        margin:'0 auto', borderBottom:'1px solid lightgray', backgroundColor:'rgb(250,250,255)'}}>
-                                                                        <ContainerDefis filter={'SHOW_SELECTED'}/>
+                                                                    <div className="sous-section">
+                                                                        <ContainerDefis filter={'SHOW_SELECTED'} langue={this.props.langue === "FR"}/>
                                                                     </div>
 
                                                                     <div style={{ display:'flex', width: '100%',justifyContent:'center',alignItems:'center',
                                                                         textAlign:'center',borderBottom:'1px solid lightgray',
-                                                                        backgroundColor:'rgb(250,250,255)',borderRight:'0px solid lightgray'}}>
-                                                                        <NavigationLink width={'70%'} color={'rgb(116,184,33)'} filter={'quiz'}>
-                                                                            Cliquer ici pour répondre ou retourner aux cinq questions fondamentales!
+                                                                        backgroundColor:'rgb(250,250,255)', borderRight:'0px solid lightgray', fontSize:'16px'}}>
+                                                                        <NavigationLink width={'70%'} fontWeight={'800'} color={'rgb(54, 117, 136)'} filter={'quiz'}>
+                                                                            {(langue === 'FR') ? "Cliquer ici pour répondre ou retourner aux cinq questions fondamentales!" : "Click here to access the questionaire form!"}
                                                                         </NavigationLink>
                                                                     </div>
+
                                                                 </div>                                  
                                                             </Tab.Pane>
                                                             <Tab.Pane eventKey="third">
@@ -1147,7 +1134,6 @@ class Contact extends Component {
                                                                         controlId="formBasicText"
                                                                         validationState={ this.getValidationStateTel() }
                                                                         >
-                                                                        <ControlLabel>No de téléphone</ControlLabel>
                                                                         <FormControl
                                                                             type="text"
                                                                             value={this.state.tel}
@@ -1160,7 +1146,6 @@ class Contact extends Component {
                                                                         controlId="formControlsTextarea"
                                                                         validationState={ this.getValidationStateMsg() }
                                                                         >
-                                                                        <ControlLabel>Commentaires</ControlLabel>
                                                                         <FormControl 
                                                                             componentClass="textarea" 
                                                                             placeholder="Commentaires"
@@ -1199,7 +1184,7 @@ class Contact extends Component {
                                                                             grecaptcha={{lang:'fr'}}
                                                                             //size='normal'
                                                                             //width='100%'
-                                                                            style={{ marginTop: -5 }}
+                                                                            style={{ marginTop: -5,textAlign:'center' }}
                                                                             theme="light"
                                                                             ref={this._reCaptchaRef}
                                                                             sitekey='6LfRiWsUAAAAAEkbfPpF01pnC4TgydIQOqVLmmp9'
@@ -1207,17 +1192,16 @@ class Contact extends Component {
                                                                             asyncScriptOnLoad={this.asyncScriptOnLoad}
                                                                             />
                                                                     )}
-                                                                    <Button 
-                                                                        style={{width:'304px',marginTop:5}}
+                                                                    <Button className='contact-send-button'
                                                                         onClick={ this.handleMailSubmitLocalServer }>
-                                                                        SEND
+                                                                        {(this.props.langue === 'FR') ? 'ENVOI' : 'SEND'}
                                                                     </Button>
                                                                     
 
                                                                 </form>                                    
                                                             </Tab.Pane>
                                                         </Tab.Content>
-                                                        </Col>
+                                                        
                                                     </Row>
                                                 </Tab.Container>
 

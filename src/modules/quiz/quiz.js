@@ -121,7 +121,9 @@ function Quiz(props) {
                                         //backgroundColor:'rgb(230,230,250)',
                                         transform: `translate3d(0, ${style.y}px, 0)` 
                                         }}>
-                                        Question <span>{props.questionId}</span> of <span>{props.questionTotal}</span>
+                                        Question <span>{props.questionId}</span> 
+                                            {(props.langue === 'FR') ? ' de ' : ' of '}
+                                        <span>{props.questionTotal}</span>
                                     </div>
                                 );
                                 case 1: return (
@@ -169,7 +171,8 @@ Quiz.propTypes = {
     //question: PropTypes.string.isRequired,
     questionId: PropTypes.number.isRequired,
     questionTotal: PropTypes.number.isRequired,
-    onAnswerSelected: PropTypes.func.isRequired
+    onAnswerSelected: PropTypes.func.isRequired,
+    langue: PropTypes.string.isRequired,
 };
 
 export default Quiz;

@@ -6,26 +6,17 @@ import Route from 'react-router-dom/Route';
 import Link from 'react-router-dom/Link';
 
 // modules
-import Cycles from './modules/cycles';
 import Home from './modules/home';
-import Contact from './modules/contact';
+import Cycles from './modules/cycles';
+import Equipe from './modules/equipe';
 import Services from './modules/services';
 import Quiz from './modules/quiz/appquiz';
+import Contact from './modules/contact';
 
 // styles
 import './App.css';
 
 /* WEBPAGES */
-  const CyclesTest = () => (
-    <div style={{width:'100%',height:'50%',display:'flex',justifyContent:'center',alignItems:'center',backgroundColor:'rgba(255,255,255,1)',color:'black'}}>
-      <h2 style={{fontSize:200}}>CyclesTest</h2>
-    </div>
-  );
-  const Equipe = () => (
-    <div style={{width:'100%',height:'100%',display:'flex',justifyContent:'center',alignItems:'center',position:'fixed',top:'0',left:'0',backgroundColor:'white',color:'black'}}>
-      <h2 style={{fontSize:200}}>Équipe</h2>
-    </div>
-  );
   const AMSTest = () => (
     <div style={{width:'100%',height:'100%',display:'flex',justifyContent:'center',alignItems:'center',position:'fixed',top:'0',left:'0',backgroundColor:'white',color:'black'}}>
       <h2 style={{fontSize:200}}>AMSTest</h2>
@@ -62,27 +53,20 @@ class Menu extends Component {
 
         <nav className="menu-items">
           <Link className="menu-item" to="/home" onClick={ toggle }>
-            <i className="fas fa-home"></i>
-            {(langue === 'FR') ? ' Accueil' : ' Home'}
+            {(langue === 'FR') ? 'Accueil' : 'Home'}
           </Link>
           <Link className="menu-item" to="/cycles" onClick={ toggle } >
-            <i className="fas fa-bicycle"></i>
-            { ' Cycles'}</Link>
+            {'Cycles'}</Link>
           <Link className="menu-item" to="/equipe" onClick={ toggle } >
-            <i className="fas fa-people-carry"></i>
-            {(langue === 'FR') ? ' Équipe' : ' Team'}</Link>
+            {(langue === 'FR') ? 'Équipe' : 'Team'}</Link>
           <Link className="menu-item" to="/Services" onClick={ toggle } >
-            <i className="fas fa-hands-helping"></i>
-            { ' Services'}</Link>
+            {'Services'}</Link>
           <Link className="menu-item" to="/quiz" onClick={ toggle } >
-            <i className="fas fa-question"></i>
-            {(langue === 'FR') ? ' Q&R' : ' Q&A'}</Link>
+            {(langue === 'FR') ? 'Questionnaire' : 'Q&A'}</Link>
           <Link className="menu-item" to="/contact" onClick={ toggle } >
-            <i className="fas fa-at"></i>
-            {(langue === 'FR') ? ' Contact' : ' Contact'}</Link>
+            {(langue === 'FR') ? 'Contact' : 'Contact'}</Link>
           <Link className="menu-item" to="/amstest" onClick={ toggle } >
-            <i className="fas fa-vial"></i>
-           { ' Test + ToDos'}</Link>
+            {'Test + ToDos'}</Link>
         </nav>
 
       </div>
@@ -107,18 +91,20 @@ class App extends Component {
   }
 
   handleMouseDown(e) {
+    console.log(e.target);
     console.log("handleMouseDown");
-    this.toggleMenu();
+    this.toggleMenu(e);
     e.stopPropagation();
   }
 
-  toggleMenu() { 
+  toggleMenu(e) { 
     const {menuOpen} = this.state;
     console.log('if menu is ',menuOpen,' just before toggling')
     const ref = this.refs.menutoggle;
     (menuOpen) ? ref.classList.remove("menu-open") : ref.classList.add("menu-open");
     this.setState({ menuOpen: !menuOpen });
     console.log('toggleMenu');
+    e.stopPropagation();
   }
 
   /*handleStateChange (state) {
@@ -151,8 +137,10 @@ class App extends Component {
 
     const RenderHome = (props) => {return (<Home langue={langue} width={width} height={height} {...props}/>);}
     const RenderCycles = (props) => {return (<Cycles langue={langue} width={width} height={height} {...props}/>);}
+    const RenderEquipe = (props) => {return (<Equipe langue={langue} width={width} height={height} {...props}/>);}
     const RenderServices = (props) => {return (<Services langue={langue} width={width} height={height} {...props}/>);}
     const RenderQuiz = (props) => {return (<Quiz langue={langue} width={width} height={height} {...props}/>);}
+    const RenderContact = (props) => {return (<Contact langue={langue} width={width} height={height} {...props}/>);}
 
     return (
       <div>
@@ -168,13 +156,12 @@ class App extends Component {
         <div className="theme" onMouseDown={this.handleTheme}>{this.state.theme}</div>
 
         <Switch>
-          <Route path='/equipe' component={Equipe} />
           <Route path='/cycles' render={RenderCycles} />
-          <Route path='/cyclestest' component={CyclesTest} />
+          <Route path='/equipe' component={RenderEquipe} />
           <Route path='/services' render={RenderServices} />
           <Route path='/amstest' component={AMSTest} />
           <Route path='/quiz' component={RenderQuiz} />
-          <Route path='/contact' component={Contact} />
+          <Route path='/contact' component={RenderContact} />
           <Route path='/' render={RenderHome} />
         </Switch>
 

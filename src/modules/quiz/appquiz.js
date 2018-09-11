@@ -4,10 +4,9 @@ import NavLink from 'react-router-dom/NavLink';
 import { Motion, StaggeredMotion, spring } from 'react-motion';
 import update from 'react-addons-update';
 import Quiz from './quiz';
-//import logo from './logo.svg';
 import quizQuestions from './quizquestions';
-//import Result from './result';
 import Contact from '../contact';
+//import Result from './result';
 //import QuizContact from './quizcontact';
 
 /* ------------ SPRING ------------ */
@@ -170,6 +169,7 @@ class AppQuiz extends Component {
             questionId={this.state.questionId}
             questionTotal={quizQuestions.length}
             onAnswerSelected={this.handleAnswerSelected}
+            langue={this.props.langue}
           />
         );
     }
@@ -201,8 +201,9 @@ class AppQuiz extends Component {
                 alignItems: 'center',
                 justifyContent: "center"
                 }}>
-                <h2 style={{display:'flex',fontSize:35, justifyContent:'center',margin:50}}>
-                    {(langue === 'FR') ? "Questionnaire" : "Questionnaire"}
+
+                <h2 style={{display:'flex',fontSize:35, justifyContent:'center',marginTop:50}}>
+                    {(langue === 'FR') ? "Questionnaire" : "Quiz"}
                 </h2>
                 <StaggeredMotion
                     defaultStyles={[
@@ -227,13 +228,13 @@ class AppQuiz extends Component {
                                 switch (index) {
                                     case 0: return (
                                         <div key={index} style={{ 
-                                            fontSize:'150%',
+                                            fontSize:'20px',
                                             padding:'10px', 
                                             textAlign:'center',
                                             opacity: style.o, //WebkitTransform: `translate3d(0, ${style.y}px, 0)` }}>
                                             WebkitTransform: `translate3d(0, ${style.y}px, 0)`, 
-                                            backgroundColor:'rgb(230,230,250)',
-                                            transform: `translate3d(0, ${style.y}px, 0)` 
+                                            backgroundColor: 'rgba(31, 48, 94, 1)',
+                                            transform: `translate3d(0, ${style.y}px, 0)`
                                             }}>
                                             {(langue === 'FR') 
                                                 ? 'Cinq questions pour mieux vous connaître'
@@ -243,12 +244,9 @@ class AppQuiz extends Component {
                                     );
                                     case 1: return (
                                         <div key={index} style={{
-                                                //display:'flex',
-                                                //justifyContent:'flex-end',
-                                                //padding:'5px',
-                                                //paddingRight:'5%',
                                                 opacity: style.o, 
-                                                //backgroundColor:'rgb(230,230,250)',
+                                                fontSize: "16px",
+                                                color: "rgba(31, 48, 94, 1)",
                                                 WebkitTransform: `translate3d(0, ${style.y}px, 0)`,
                                                 transform: `translate3d(0, ${style.y}px, 0)` 
                                             }}>

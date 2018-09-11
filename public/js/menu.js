@@ -3,7 +3,7 @@ $(document).ready(function(){
 		$menu=$(".menu"),
 		$menuItem=$(".menu-item2"),
 		$menuBg=$(".menu-bg"),
-		$menuToggle=$(".menu-toggle"),
+		$menuToggle=$(".menu-toggle2"),
 
 		menuWidth=300,
 		menuItemOffset=150,

@@ -38,45 +38,11 @@ class Home extends Component {
     super(props, context);
 
     this.state = {
-      //visible: false,
       langue: "FR",
-      //theme: "dark",
       indexMVI : 0
     };
-
-    //this.handleMouseDown = this.handleMouseDown.bind(this);
-    //this.toggleMenu = this.toggleMenu.bind(this);
     this.handleMVI = this.handleMVI.bind(this);
   }
-
-  /*
-  handleMouseDown(e) {
-    console.log("clicked");
-    const ref = this.refs.menutoggle;
-    (this.state.visible) ? ref.classList.remove("menu-open") : ref.classList.add("menu-open");
-    this.toggleMenu();
-    e.stopPropagation();
-  }
-
-  toggleMenu() { 
-    this.setState({ visible: !this.state.visible }); 
-  }
-
-  handleLanguage = () => {
-    const {langue} = this.state;
-    (langue === "FR") ? this.setState( {langue:"EN"}) : this.setState( {langue:"FR"})
-  }
-
-  handleTheme = () => {
-    const {theme} = this.state;
-    if (theme === "light") { 
-      document.body.setAttribute("style", "background:#52545A;color:#B2B5BD"); 
-    }
-    else { 
-      document.body.setAttribute("style", "background:#B2B5BD;color:#52545A");
-    }
-    this.setState( {theme: (theme === "light") ? "dark" : "light"} );
-  }*/
 
   handleMVI = (i) => {
     this.setState( {indexMVI:i})
