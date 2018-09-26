@@ -67,7 +67,7 @@
 	width: 100%;
 	height: calc(100% + var(--gap-vertical) * 2);
 	height: 100%;
-	background: url(../images/CPO.jpg) no-repeat 100% 50%;
+	background: url(../images/logo.jpg) no-repeat 100% 50%;
 	background-color: var(--blend-color-1);
   background-size: cover;
   /*background-size: 30vw auto;

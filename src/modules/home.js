@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
+import Logo from './logo';
 import '../App.css';
+
+import logo from './images/logo.jpg';
 
 /* MISSION - VALEURS - INTÉGRITÉ */
 
   /* functional component */
-  const MVI = (props) => (
-    <div className="statement">
+  const MVI = (props) => ( // `translate3d(0, ${style.y}px, 0)`
+    <div className = {props.visible ? "statement show" : "statement hide"}>
         <div className="title">
           - {props.title} -
           <span>{props.text}</span>
@@ -71,29 +74,34 @@ class Home extends Component {
       text = (langue === "FR") ? mvidata[2].texte : mvidata[2].text;
     }
 
+    const RenderLogo = (props) => {return (<Logo width={this.props.width} height={this.props.height} {...props}/>);}
+
     return (
-      <div className="">
-        <header className="codrops-header">
+      <div>
+        
+          <header className="codrops-header">
 
-          <h1>Consultants PME Outaouais<span><a href="#">
-            { (this.state.langue === 'FR') ? 'construire et rénover des entreprises' : 'reengineering success' }
-            </a></span></h1>
+            <h1>Consultants PME Outaouais<span><a href="#">
+              { (this.state.langue === 'FR') ? 'construire et rénover des entreprises' : 'reengineering success' }
+              </a></span></h1>
 
-          <nav className="codrops-demos">
-            <a href="#" onClick={()=>this.handleMVI(1)}>
-              { (langue === 'FR') ? 'Mission' : 'Mission' }
-            </a>
-            <a href="#" onClick={()=>this.handleMVI(2)}>
-              { (langue === 'FR') ? 'Valeurs' : 'Values' }
-            </a>
-            <a href="#" onClick={()=>this.handleMVI(3)}>
-              { (langue === 'FR') ? 'Intégrité' : 'Integrity' }
-            </a>
-          </nav>
+            <RenderLogo />
 
-        </header>
+            <nav className="codrops-demos">
+              <a href="#" onClick={()=>this.handleMVI(1)}>
+                { (langue === 'FR') ? 'Mission' : 'Mission' }
+              </a>
+              <a href="#" onClick={()=>this.handleMVI(2)}>
+                { (langue === 'FR') ? 'Valeurs' : 'Values' }
+              </a>
+              <a href="#" onClick={()=>this.handleMVI(3)}>
+                { (langue === 'FR') ? 'Intégrité' : 'Integrity' }
+              </a>
+            </nav>
 
-        { (indexMVI !== 0) ? <MVI title={title} text={text}/> : null }
+          </header>
+
+          { (indexMVI !== 0) ? <MVI title={title} text={text} visible={true} /> : null }
 
       </div>
     );

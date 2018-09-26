@@ -1,0 +1,45 @@
+.node rect {
+  fill: #fff;
+  stroke: steelblue;
+  stroke-width: 0px;
+}
+  
+.node text {
+  font: 2em 'Quattrocento Sans';
+}
+  
+.link {
+  stroke: #000;
+  stroke-width: 2px;
+  fill: none;
+}
+
+/* transition */
+
+.show {
+  transform: translateY(0);
+  transition: transform 1000ms ease;
+}
+
+.hide {
+  opacity:0;
+  transition: opacity 1000ms;
+}
+
+.example-enter {
+  opacity: 0.01;
+}
+
+.example-enter.example-enter-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+}
+
+.example-leave {
+  opacity: 1;
+}
+
+.example-leave.example-leave-active {
+  opacity: 0.01;
+  transition: opacity 300ms ease-in;
+}

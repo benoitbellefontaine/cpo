@@ -35,9 +35,9 @@ const childButtonIcons = ['rocket','low-vision','eye','trophy','sync-alt','servi
 var color = d3.scaleOrdinal(d3.schemeCategory10);
 
 /* action */
-  const toggleTodo = id => {
+  const toggleService = id => {
       return {
-        type: 'TOGGLE_TODO',
+        type: 'TOGGLE_SERVICE',
         id
       }
   }
@@ -61,7 +61,7 @@ var color = d3.scaleOrdinal(d3.schemeCategory10);
 /* end action */
 
 /* presentation */
-  const Item = ({ onClick, completed, text }) => (
+  const Item = ({ onClick, completed, name }) => (
       <li
         onClick={onClick}
         style={{
@@ -69,17 +69,17 @@ var color = d3.scaleOrdinal(d3.schemeCategory10);
           padding: 10,
           margin: 3,
           borderRadius: 10,
-          color: completed ? 'white' : 'rgba(0,0,0,0.7)',
-          backgroundColor: completed ? 'rgb(116,184,33)' : 'rgba(0,0,0,0.1)',
+          color: completed ? 'white' : 'black',
+          backgroundColor: completed ? 'rgb(116,184,33)' : 'rgba(255,255,255,1)',
           //border: completed ? '2px solid rgb(116,184,33)' : '2px solid gray',
-          fontSize: '100%',
+          fontSize: '16px',
           fontWeight: 600,
           flexGrow: 1
         }}
         >
         <div style={{display:'flex',justifyContent:'space-between',alignItems:'center'}}>
-            <div><i className={completed ? `fas fa-check-square fa-2x` : `far fa-square fa-2x`}></i></div>
-            <span style={{width:'90%',margin:'0 auto',textAlign:'center'}}>{text}</span>
+            <div><i className={completed ? `fas fa-check-square fa-1x` : `far fa-square fa-1x`}></i></div>
+            <span style={{width:'90%',margin:'0 auto',textAlign:'center'}}>{name}</span>
             <span> </span>
         </div>
       </li>
@@ -87,28 +87,28 @@ var color = d3.scaleOrdinal(d3.schemeCategory10);
   Item.propTypes = {
     onClick: PropTypes.func.isRequired,
     completed: PropTypes.bool.isRequired,
-    text: PropTypes.string.isRequired
+    name: PropTypes.string.isRequired
   }
   
-  const List = ({ todos, onTodoClick }) => {
+  const List = ({ services, onServiceClick }) => {
     return (
       <ul style={{width:'100%',boxSizing:'border-box',display:'flex',flexDirection:'row',flexWrap:'wrap',justifyContent:'center',margin:3,padding:0}}>
-        {todos.map(todo => (
-          <Item key={todo.id} {...todo} onClick={() => onTodoClick(todo.id)} />
+        {services.map(service => (
+          <Item key={service.id} {...service} onClick={() => onServiceClick(service.id)} />
         ))}
       </ul>
     );
   }
 
   List.propTypes = {
-      todos: PropTypes.arrayOf(
+      services: PropTypes.arrayOf(
           PropTypes.shape({
               id: PropTypes.number.isRequired,
               completed: PropTypes.bool.isRequired,
               text: PropTypes.string.isRequired
           }).isRequired
       ).isRequired,
-      onTodoClick: PropTypes.func.isRequired
+      onServiceClick: PropTypes.func.isRequired
   }
 
   /*
@@ -214,7 +214,6 @@ var color = d3.scaleOrdinal(d3.schemeCategory10);
       return {
           onClick: () => {
             dispatch(setVisibilityFilter(ownProps.filter))
-            console.log('FL:mapDispatchToPropsFL:ownProps.filter',ownProps.filter);
           }
       }
   }
@@ -225,50 +224,50 @@ var color = d3.scaleOrdinal(d3.schemeCategory10);
   )(Button)
 /* container 0 : FilterButton */
 
-/* container 1 : AllList */
-  const getVisibleTodosAll = (todos, filter) => {
+/* ServicesList */
+  const getVisibleServices = (services, filter) => {
       switch (filter) {
         case 'SHOW_COMPLETED':
-          return todos.filter(t => t.completed)
+          return services.filter(t => t.completed)
         case 'SHOW_ACTIVE':
-          return todos.filter(t => !t.completed)
-        case 'SHOW_DEMARRAGE':
-          return todos.filter(t => t.situations.find(function(element) {return element === 'demarrage'} ))
+          return services.filter(t => !t.completed)
+        case 'SHOW_DEMARRAGE': console.log('SHOW_DEMARRAGE');
+          return services.filter(t => ( t.type === 'demarrage' ))
         case 'SHOW_COURTTERME':
-          return todos.filter(t => t.situations.find(function(element) {return element === 'court terme'} ))
+          return services.filter(t => t.situations.find(function(element) {return element === 'court terme'} ))
         case 'SHOW_MOYENTERME':
-          return todos.filter(t => t.situations.find(function(element) {return element === 'moyen terme'} ))
+          return services.filter(t => t.situations.find(function(element) {return element === 'moyen terme'} ))
         case 'SHOW_EXCELLENCE':
-          return todos.filter(t => t.situations.find(function(element) {return element === 'excellence'} ))
+          return services.filter(t => t.situations.find(function(element) {return element === 'excellence'} ))
         case 'SHOW_REDRESSEMENT':
-          return todos.filter(t => t.situations.find(function(element) {return element === 'redressement'} ))
+          return services.filter(t => t.situations.find(function(element) {return element === 'redressement'} ))
          case 'SHOW_NONE':
           return [];
         case 'SHOW_ALL':
         default:
-          return todos
+          return services
       }
   }
      
-  const mapStateToPropsAll = (state, ownProps) => {
+  const mapStateToPropsAll = (state) => {
       return {
-        todos: getVisibleTodosAll(state.services, state.visibilityFilter)
+        services: getVisibleServices(state.services, state.visibilityFilter)
       }
   }
      
   const mapDispatchToPropsAll = dispatch => {
       return {
-        onTodoClick: id => {
-          dispatch(toggleTodo(id));
+        onServiceClick: id => {
+          dispatch(toggleService(id));
         }
       }
   }
      
-  const AllList = connect(
+  const ServicesList = connect(
       mapStateToPropsAll,
       mapDispatchToPropsAll
   )(List)
-/* container 1: AllList */
+/* ServicesList */
 
 const innerWrapperStyles = {
   display: 'flex',
@@ -665,7 +664,7 @@ export default class Services extends Component {
                                       justifyContent:'flex-start', alignItems:'center'}}>
                                       <div style={{width:'100%'}}>
                                       
-                                        <AllList filter={'SHOW_COMPLETED'}/>
+                                        <ServicesList filter={'SHOW_COMPLETED'}/>
 
                                         <div className='servicesShadow' style={{ display:'flex', width:'100%',
                                           textAlign:'center', margin:'3', padding:0, boxSizing:'border-box',
@@ -698,4 +697,3 @@ export default class Services extends Component {
 // ServiceButtons - component
 // FilterButton - container
 // Button - component
-

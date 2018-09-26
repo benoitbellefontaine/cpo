@@ -1,0 +1,7 @@
+export default {
+      "_id": "5ba96609ab873fd792fd5cba",
+      "picture": "http://placehold.it/1000x400",
+      "name": "Mcknight Rhodes",
+      "description": "Mollit ea nisi sint in. Esse proident deserunt elit Lorem nostrud sit. Velit et tempor ullamco eiusmod esse culpa sint. Do do excepteur ut irure tempor dolore amet mollit anim. Et sint cupidatat commodo duis dolore magna esse. Culpa sint sit exercitation aliquip mollit deserunt officia do. Ut fugiat exercitation sunt consectetur qui excepteur fugiat ipsum eiusmod incididunt veniam sint enim occaecat.\r\nMinim velit tempor voluptate amet veniam. Deserunt exercitation qui consequat cillum. Proident pariatur minim irure ad qui officia ipsum id. Incididunt id amet esse culpa ullamco aliquip est amet eu fugiat cupidatat.\r\nEst cillum fugiat nostrud quis non veniam incididunt eu cupidatat fugiat est mollit fugiat. Occaecat laboris est tempor nisi exercitation. Incididunt esse cupidatat esse ipsum labore duis excepteur dolore. Veniam in incididunt irure aute sint reprehenderit mollit eu minim. Excepteur occaecat culpa incididunt do occaecat consectetur id sit aliquip. Ullamco elit amet anim amet mollit fugiat consequat quis exercitation irure.\r\n",
+      "createdAt": "2016-12-16T02:54:57 +05:00"
+};

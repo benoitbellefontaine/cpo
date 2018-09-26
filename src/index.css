@@ -9,7 +9,8 @@ body {
 	padding: 0;
 	font-family: sans-serif;
 	color: #B2B5BD;
-	background: #52545A;
+	/*background: #52545A;*/
+	background-color: lightgray;
 	font-size: 1em;
 	font-family: 'Quattrocento Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 	-webkit-font-smoothing: antialiased;
@@ -116,7 +117,7 @@ p {
 
 /* Demo links */
 .codrops-demos {
-	margin: 2em 0 0;
+	margin: 0;
 	font-size: 2em !important;
 }
 

@@ -525,7 +525,7 @@ class Cycles extends Component {
                     {(langue === 'FR') ? "Cycles de vie de l'entreprise" : "Business Lifecycles"}
                 </h2>
 
-                <svg style={{width:'calc(100% - 20vw)',backgroundColor:'white',margin:'0 10vw 0 10vw',
+                <svg style={{width:'80vw',height:'75vh',backgroundColor:'white',
                     boxShadow: 'inset 5px 5px 10px rgba(0,0,0,.5),inset -5px -5px 10px rgba(0,0,0,.5)',
                     borderRadius: 10
                     //boxShadow: '5px 5px 5px rgba(255,255,255,.8),-5px -5px 5px rgba(255,255,255,.8)'
@@ -543,7 +543,7 @@ class Cycles extends Component {
                     //backgroundColor:"black",
                     padding:20}}>
                     
-                    <div style={{width:'calc(100% - 20vw)',margin:'0 auto',textAlign:'left',color:'white',fontFamily:"Lustria",fontSize:'2em',fontStyle: "italic"}}>
+                    <div style={{width:'80vw',margin:'0 auto',textAlign:'left',color:'white',fontFamily:"Lustria",fontSize:'1.3em',fontStyle: "italic"}}>
                         “Toute compagnie qui démarre doit faire face à certains défis et le principal défi 
                         d'une firme expert/conseil en services financiers telle que la nôtre, est de 
                         positionner ses services en fonction des besoins du client. 

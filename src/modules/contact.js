@@ -95,12 +95,6 @@ const NavigationLink = ({ filter, color, width, fontWeight, children }) => (
         id
         }
     }
-    const secteurGetCount = id => {
-        return {
-        type: 'GET_COUNT',
-        id
-        }
-    }
     const chiffreSelect = id => {
         return {
         type: 'CHIFFRE_SELECT',
@@ -209,8 +203,8 @@ const NavigationLink = ({ filter, color, width, fontWeight, children }) => (
                     <div className="item-presentation-li">
                             <div style={{margin:'0px',padding:'0px'}}>
                                 <div><i className={`fas fa-times-circle fa-2x`}></i></div>
-                                <span style={{width:'90%',margin:'0 auto',textAlign:'center'}}>
-                                    {(langue) ? "Aucun service sélectionné" : "No services selected"}
+                                <span style={{width:'100%',margin:'0 auto',textAlign:'center'}}>
+                                    {(langue) ? "Il n'y a pas de réponse" : "No services selected"}
                                 </span>
                                 <span> </span>
                             </div>
@@ -342,24 +336,25 @@ const NavigationLink = ({ filter, color, width, fontWeight, children }) => (
     /* DEFI presentation */
 
     /* SERVICE presentation */
-        const Item = ({ onClick, completed, text }) => (
+        const Item = ({ onClick, selected, name, color }) => (
             <li className="item-presentation-li"
                 style={{
-                    color: completed ? 'white' : 'rgba(0,0,0,0.7)',
-                    backgroundColor: completed ? 'rgb(116,184,33)' : color[Math.floor(Math.random()*10)],
+                    color: selected ? 'white' : 'rgba(0,0,0,0.7)',
+                    backgroundColor: selected ? color : color[Math.floor(Math.random()*10)],
                 }}
                 >
                 <div style={{display:'flex',justifyContent:'space-between',alignItems:'center'}}>
-                    <div><i className={completed ? `fas fa-check-square fa-2x` : `far fa-square fa-2x`}></i></div>
-                    <span style={{width:'90%',margin:'0 auto',textAlign:'center'}}>{text}</span>
+                    <div><i className={selected ? `fas fa-check-square fa-2x` : `far fa-square fa-2x`}></i></div>
+                    <span style={{width:'90%',margin:'0 auto',textAlign:'center'}}>{name}</span>
                     <span> </span>
                 </div>
             </li>
         )
         Item.propTypes = {
             onClick: PropTypes.func.isRequired,
-            completed: PropTypes.bool.isRequired,
-            text: PropTypes.string.isRequired
+            selected: PropTypes.bool.isRequired,
+            name: PropTypes.string.isRequired,
+            color: PropTypes.string.isRequired
         }
 
         const List = ({ todos, onTodoClick, langue }) => {
@@ -375,7 +370,7 @@ const NavigationLink = ({ filter, color, width, fontWeight, children }) => (
                             </div>
                     </div>)
             return (
-                <ul style={{display:'flex',flexWrap: 'wrap',width:'100%',padding:10}}>
+                <ul style={{display:'flex',flexWrap:'wrap',width:'100%',padding:10,margin:0}}>
                     {todos.map(todo => (
                         <Item key={todo.id} {...todo} onClick={() => onTodoClick(todo.id)} />
                     ))}
@@ -541,10 +536,10 @@ const NavigationLink = ({ filter, color, width, fontWeight, children }) => (
 /* container 2 : ContainerServices */
   const getVisibleTodos = (todos, filter) => {
       switch (filter) {
-        case 'SHOW_COMPLETED':
-          return todos.filter(t => t.completed)
+        case 'SHOW_SELECTED':
+          return todos.filter(t => t.selected)
         case 'SHOW_ACTIVE':
-          return todos.filter(t => !t.completed)
+          return todos.filter(t => !t.selected)
         case 'SHOW_NONE':
           return [];
         case 'SHOW_ALL':
@@ -555,7 +550,7 @@ const NavigationLink = ({ filter, color, width, fontWeight, children }) => (
     
   const mapStateToProps = state => {
       return {
-          todos: getVisibleTodos(state.services, 'SHOW_COMPLETED')
+          todos: getVisibleTodos(state.serviceApp, 'SHOW_SELECTED')
       }
   }
      
@@ -1009,7 +1004,8 @@ class Contact extends Component {
                                             style={{
                                                 display: 'flex',
                                                 flexDirection: 'column',
-                                                width: '344px',
+                                                width: '50vw',
+                                                minWidth:'344px',
                                                 margin: '5vh auto',
                                                 //border: '1px solid black',
                                                 padding: 20,
@@ -1018,7 +1014,6 @@ class Contact extends Component {
                                                 backgroundColor: "rgba(173, 216, 230,1)",//'lightblue',
                                                 opacity: style.o,
                                                 WebkitTransform: `translate3d(0, ${style.y}px, 0)`, 
-                                                //backgroundColor:'rgb(230,230,250)',
                                                 transform: `translate3d(0, ${style.y}px, 0)`
                                             }}>
                                                <Tab.Container className="contact-tabs" id="left-tabs-example" defaultActiveKey="first" style={{padding:15}}>
@@ -1031,15 +1026,15 @@ class Contact extends Component {
                                                         </Nav>
                                                         <Tab.Content animation>
                                                             <Tab.Pane eventKey="first">
-                                                                <div><h4 style={{textAlign:'center',padding:'10px',textTransform:'uppercase',color:'black'}}>
-                                                                    {(langue === 'FR') ? "Voici les services que vous pourriez avoir besoin" : "Some of the services you could use"}</h4></div>
+                                                                <div><h4 style={{textAlign:'center',padding:'10px',textTransform:'uppercase',color:'black', fontSize:'2vw'}}>
+                                                                    {(langue === 'FR') ? "Voici les services dont vous pourriez avoir besoin" : "Some of the services you could use"}</h4></div>
                                                                 <div style={{ display:'flex', width: '100%',justifyContent:'center',alignItems:'flex-start',
                                                                     borderBottom:'1px solid lightgray', backgroundColor:'rgb(250,250,255)'}}>
                                                                     <ContainerServices filter={'SHOW_COMPLETED'}/>
                                                                 </div>
                                                                 <div style={{ display:'flex', width: '100%',justifyContent:'center',alignItems:'center',
                                                                     textAlign:'center',borderBottom:'1px solid lightgray', fontSize:'16px', color:'black',
-                                                                    backgroundColor:'rgb(250,250,255)',borderRight:'0px solid lightgray',textTransform:'uppercase'}}>
+                                                                    backgroundColor:'rgb(250,250,255)',textTransform:'uppercase'}}>
                                                                     <NavigationLink width={'70%'} fontWeight={'800'} color={'rgb(54, 117, 136)'} filter={'services'}>
                                                                         {(langue === 'FR') ? fraLienServices : angLienServices}
                                                                     </NavigationLink>

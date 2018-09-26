@@ -1,19 +1,99 @@
 import { combineReducers } from 'redux';
-import { reducer as formReducer } from 'redux-form';
+//import { reducer as formReducer } from 'redux-form';
 
 const VisibilityFilters = {
   SHOW_ALL: 'SHOW_ALL',
-  SHOW_COMPLETED: 'SHOW_COMPLETED',
-  //SHOW_ACTIVE: 'SHOW_ACTIVE'
+  SHOW_SELECTED: 'SHOW_SELECTED',
+  SHOW_ACTIVE: 'SHOW_ACTIVE'
 }
 
-const SecteursFilters = {
-  SHOW_ALL: 'SHOW_ALL',
-  SHOW_SELECTED: 'SHOW_SELECTED',
+const initialstate = [
+    // DEMARRAGE
+    { id:6,     name: "structure d'entreprise",         type: "demarrage",       selected:false, color:'rgb(255,127,14)' },
+    { id:7,     name: "incorporation",                  type: "demarrage",       selected:false, color:'rgb(255,127,14)' },
+    { id:8,     name: "plan d'affaire",                 type: "demarrage",       selected:false, color:'rgb(255,127,14)' },
+    { id:9,     name: "plan comptable",                 type: "demarrage",       selected:false, color:'rgb(255,127,14)' },
+    { id:10,    name: "prévisions budgétaires",         type: "demarrage",       selected:false, color:'rgb(255,127,14)' },
+    { id:11,    name: "recherche subventions",          type: "demarrage",       selected:false, color:'rgb(255,127,14)' },
+    { id:12,    name: "financement",                    type: "demarrage",       selected:false, color:'rgb(255,127,14)' },
+    { id:13,    name: "plan de commercialisation",      type: "demarrage",       selected:false, color:'rgb(255,127,14)' },
+    // COURT TERME
+    { id:14,    name: "procédures de fin de mois",          type: "court terme",     selected:false, color:'rgb(44,160,44)' },
+    { id:15,    name: "gestion des RH",                     type: "court terme",     selected:false, color:'rgb(44,160,44)' },
+    { id:16,    name: "comparables budget vs réel",         type: "court terme",     selected:false, color:'rgb(44,160,44)' },
+    { id:17,    name: "analyse des ratios financiers",      type: "court terme",     selected:false, color:'rgb(44,160,44)' },
+    { id:18,    name: "préparation des budgets annuels",    type: "court terme",     selected:false, color:'rgb(44,160,44)' },
+    // MOYEN TERME
+    { id: 19,   "name": "révision structure financière",    type: "moyen terme",     selected:false, color:'rgb(214,39,40)' },
+    { id: 20,   "name": "analyse stratégique",              type: "moyen terme",     selected:false, color:'rgb(214,39,40)' },
+    { id: 21,   "name": "programme réduction des coûts",    type: "moyen terme",     selected:false, color:'rgb(214,39,40)' },
+    { id: 22,   "name": "analyse rentabilité & efficacité", type: "moyen terme",     selected:false, color:'rgb(214,39,40)' },
+    { id: 23,   "name": "révision de la structure d'entreprise",     type: "moyen terme",     selected:false, color:'rgb(214,39,40)' },
+    { id: 24,   "name": "amélioration des processus continues",      type: "moyen terme",     selected:false, color:'rgb(214,39,40)' },
+    { id: 25,   "name": "contrôles internes",               type: "moyen terme",     selected:false, color:'rgb(214,39,40)' },
+    { id: 26,   "name": "prix de revient",                  type: "moyen terme",     selected:false, color:'rgb(214,39,40)' },
+    // EXCELLENCE
+    { id:27,    name: "planification stratégique",          type: "excellence",      selected:false, color:'rgb(148,103,189)' },
+    { id:28,    name: "plan de relève",                     type: "excellence",      selected:false, color:'rgb(148,103,189)' },
+    { id:29,    name: "tableau de bord (scorecard)",        type: "excellence",      selected:false, color:'rgb(148,103,189)' },
+    { id:30,    name: "analyse de la chaine des valeurs",   type: "excellence",      selected:false, color:'rgb(148,103,189)' },
+    { id:31,    name: "rigueur & discipline",               type: "excellence",      selected:false, color:'rgb(148,103,189)' },
+    { id:32,    name: "plans quinquennaux",                 type: "excellence",      selected:false, color:'rgb(148,103,189)' },
+    // REDRESSEMENT
+    { id:33,    name: "respirateur artificiel",            type: "redressement",      selected:false, color:'rgb(140,86,75)' },
+    { id:34,    name: "consolidation de dettes",           type: "redressement",      selected:false, color:'rgb(140,86,75)' },
+    { id:35,    name: "recherche de nouveaux investisseurs", type: "redressement",    selected:false, color:'rgb(140,86,75)' },
+    { id:36,    name: "réingénierie",                      type: "redressement",      selected:false, color:'rgb(140,86,75)' },
+    { id:37,    name: "plan de revitalisation",            type: "redressement",      selected:false, color:'rgb(140,86,75)' },
+    { id:38,    name: "refinancement",                     type: "redressement",      selected:false, color:'rgb(140,86,75)' },
+
+];
+
+function serviceApp( state = initialstate, action ) {
+    switch (action.type) {
+        /*case SET_VISIBILITY_FILTER:
+            return Object.assign({}, state, {
+                visibilityFilter: action.filter
+        })*/
+        case 'TOGGLE_SERVICE':
+            console.log("serviceApp");
+            return state.map(service =>
+                (service.id === action.id)
+                ? {...service, selected: !service.selected}
+                : service
+            )
+        default:
+            return state
+    }
 }
 
 const initialState = {
     visibilityFilter: VisibilityFilters.SHOW_ALL,
+    cpo: {
+        "name": "CPO",
+        "id": 0,
+        "desc": "CPO description",
+        "children": [
+            { 
+                "name": "Démarrage",
+                "id": 1,
+                "desc": "Démarrage description",
+                "children": [
+                    {   "id": 3, "name": "structure d'entreprise tree", "desc": "One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin." },
+                    {   "id": 4, "name": "incorporation", "desc": "He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed and divided by arches into stiff sections." },                    
+                ]
+            },
+            { 
+                "name": "Court terme",
+                "id": 2,
+                "desc": "Court terme description",
+                "children": [
+                    { "id": 5, "name": "procédures de fin de mois", "desc": "procédures de fin de mois description"},
+                    { "id": 6, "name": "gestion des RH", "desc": "gestion RH description"},
+                ]
+            }
+        ]
+    },
     services: [
         // DEMARRAGE
         { id:1, text: "structure d'entreprise",                situations: ["demarrage"], completed:false },
@@ -41,7 +121,7 @@ const initialState = {
         { id:19, text: "révision de la structure d'entreprise", situations: ["moyen terme"], completed:false },
         { id:20, text: "amélioration des processus continues",  situations: ["moyen terme"], completed:false },
         { id:21, text: "contrôles internes",                    situations: ["moyen terme"], completed:false },
-        { id:22, text: "prix de revient",                       situations: ["court terme"], completed:false },
+        { id:22, text: "prix de revient",                       situations: ["moyen terme"], completed:false },
 
         // EXCELLENCE
         { id:23, text: "planification stratégique",         situations: ["excellence"], completed:false },
@@ -159,7 +239,7 @@ const initialState = {
     ]
 }
 
-const services = ( state = initialState.services, action ) => {
+const services = ( state = initialstate, action ) => {
     switch (action.type) {
         case 'ADD_TODO':    
         return [
@@ -170,7 +250,7 @@ const services = ( state = initialState.services, action ) => {
                 completed: false
             }
         ]
-        case 'TOGGLE_TODO':
+        case 'TOGGLE_SERVICE':
         return state.map(todo =>
             (todo.id === action.id)
             ? {...todo, completed: !todo.completed}
@@ -178,6 +258,19 @@ const services = ( state = initialState.services, action ) => {
         )
         default:
         return state
+    }
+}
+
+const cpo = ( state = initialState.cpo, action ) => {
+    switch (action.type) {
+        case 'TOGGLE_SERVICE':
+            return state.map(todo =>
+                (todo.id === action.id)
+                ? {...todo, completed: !todo.completed}
+                : todo
+            )
+        default:
+            return state
     }
 }
 
@@ -293,7 +386,9 @@ const reducers = combineReducers({
   qualites,
   chiffres,
   defis,
-  form: formReducer
+  serviceApp
+  //form: formReducer
 })
 
-export default reducers
+export default reducers;
+//export {treeData};
