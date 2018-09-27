@@ -9,8 +9,7 @@ body {
 	padding: 0;
 	font-family: sans-serif;
 	color: #B2B5BD;
-	/*background: #52545A;*/
-	background-color: lightgray;
+	background: #52545A;
 	font-size: 1em;
 	font-family: 'Quattrocento Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 	-webkit-font-smoothing: antialiased;
