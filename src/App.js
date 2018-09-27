@@ -54,10 +54,6 @@ class Menu extends Component {
           <Link className="menu-item" to="/home" onClick={ toggle }>
             {(langue === 'FR') ? 'Accueil' : 'Home'}
           </Link>
-          <Link className="menu-item" to="/homepage" onClick={ toggle } >
-            {'Homepage'}</Link>
-          <Link className="menu-item" to="/item" onClick={ toggle } >
-            {'Itempage'}</Link>
           <Link className="menu-item" to="/cycles" onClick={ toggle } >
             {'Cycles'}</Link>
           <Link className="menu-item" to="/equipe" onClick={ toggle } >
@@ -68,8 +64,6 @@ class Menu extends Component {
             {(langue === 'FR') ? 'Questionnaire' : 'Q&A'}</Link>
           <Link className="menu-item" to="/contact" onClick={ toggle } >
             {(langue === 'FR') ? 'Contact' : 'Contact'}</Link>
-          <Link className="menu-item" to="/intro" onClick={ toggle } >
-            {(langue === 'FR') ? 'Intro' : 'Intro'}</Link>
           </nav>
 
       </div>

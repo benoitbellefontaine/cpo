@@ -19,11 +19,7 @@ import createRoutes from './routes';
 
 import './index.css';
 
-const store = createStore(
-  combineReducers({
-    reducers
-  })
-)
+const store = createStore(reducers);
 
 // Create an enhanced history that syncs navigation events with the store
 //const history = syncHistoryWithStore(browserHistory, store)
