@@ -8,7 +8,6 @@ var request = require('request');
 
 var user = 'consultantspmeoutaouais';
 var password = 'Be473918$';
-var key = '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';
 
 //and create our instances
 var app = express();
@@ -19,7 +18,6 @@ var SendGrid = require('sendgrid-nodejs').SendGrid;
 var sendgrid = new SendGrid(user, key);
 
 const sgMail = require('@sendgrid/mail');
-sgMail.setApiKey('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');
 
 //set our port to either a predetermined port number if you have set 
 //it up, or 3001
