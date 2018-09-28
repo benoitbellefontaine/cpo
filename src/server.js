@@ -78,7 +78,7 @@ router.route('/mail')
 
         console.log('req.body.captcha',req.body.captcha);
         
-        const secretKey = '6LfRiWsUAAAAALi3ErxshSQju5W3VUVZxvA98Z_B';
+        const secretKey = '';
     
         const verifyUrl = `https://google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${req.body.captcha}&remoteip=${req.connection.remoteAddress}`;
     
