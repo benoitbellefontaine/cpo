@@ -8,10 +8,9 @@ var request = require('request');
 
 var user = 'consultantspmeoutaouais';
 var password = 'Be473918$';
-<<<<<<< HEAD
+
 var sendgrid_key = '';
-=======
->>>>>>> c79b5bf276c69e12497c404859c896d1096f9bf3
+
 
 //and create our instances
 var app = express();
