@@ -7,7 +7,7 @@ var bodyParser = require('body-parser');
 var request = require('request');
 
 var user = 'consultantspmeoutaouais';
-var password = 'Be473918$';
+var password = '';
 
 var sendgrid_key = '';
 
