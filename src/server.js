@@ -1,4 +1,4 @@
-//server.js
+﻿//server.js
 'use strict'
 
 //first we import our dependencies…
@@ -7,7 +7,7 @@ var bodyParser = require('body-parser');
 var request = require('request');
 
 var user = 'consultantspmeoutaouais';
-var password = '';
+var password = 'Be473918$';
 
 var sendgrid_key = '';
 
