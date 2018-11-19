@@ -1110,6 +1110,7 @@ class Contact extends Component {
                                                                             value={this.state.name}
                                                                             placeholder="nom"
                                                                             onChange={this.handleChangeName}
+                                                                            style={{border:"none",borderRadius:0}}
                                                                         />
                                                                         <FormControl.Feedback />
                                                                     </FormGroup>
@@ -1122,6 +1123,7 @@ class Contact extends Component {
                                                                             value={this.state.email}
                                                                             placeholder="courriel"
                                                                             onChange={this.handleChangeEmail}
+                                                                            style={{border:"none",borderRadius:0}}
                                                                         />
                                                                         <FormControl.Feedback />
                                                                     </FormGroup>
@@ -1134,6 +1136,7 @@ class Contact extends Component {
                                                                             value={this.state.tel}
                                                                             placeholder="999-999-9999"
                                                                             onChange={this.handleChangeTel}
+                                                                            style={{border:"none",borderRadius:0}}
                                                                         />
                                                                         <FormControl.Feedback />
                                                                     </FormGroup>
@@ -1145,7 +1148,8 @@ class Contact extends Component {
                                                                             componentClass="textarea" 
                                                                             placeholder="Commentaires"
                                                                             value={this.state.message} 
-                                                                            onChange={this.handleChangeMsg}/>
+                                                                            onChange={this.handleChangeMsg}
+                                                                            style={{border:"none",borderRadius:0}}/>
                                                                     </FormGroup>
 
                                                                     { (this.state.showAlert && this.state.datastatus) ? 
@@ -1172,7 +1176,7 @@ class Contact extends Component {
                                                                         </Alert>
                                                                         : null
                                                                     }
-
+                                                                    <div style={{display:'flex',boxSizing: 'border-box'}}>
                                                                     {this.state.load && (
                                                                         <ReCAPTCHA
                                                                             lang="fr"
@@ -1189,9 +1193,11 @@ class Contact extends Component {
                                                                     )}
                                                                     <Button className='contact-send-button'
                                                                         onClick={ this.handleMailSubmitLocalServer }>
-                                                                        {(this.props.langue === 'FR') ? 'ENVOI' : 'SEND'}
+                                                                        {(this.props.langue === 'FR') 
+                                                                            ? 'Envoyer' 
+                                                                            : 'Send'}
                                                                     </Button>
-                                                                    
+                                                                    </div>
 
                                                                 </form>                                    
                                                             </Tab.Pane>
